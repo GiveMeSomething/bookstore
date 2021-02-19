@@ -13,7 +13,6 @@ import entities.Book;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 // Specified to handling db action
 public class Books_Repository {
