@@ -21,6 +21,12 @@ public class User {
 
     }
 
+    public User(String username, String password, String salt) {
+        this.username = username;
+        this.password = password;
+        this.salt = salt;
+    }
+
     public User(String username, String password, String email, String phoneNum, String salt) {
         this.username = username;
         this.password = password;

@@ -12,7 +12,7 @@
     <body class="login-container">
         <div class="container d-flex align-items-center justify-content-center full-height-container">
             <div class="row ">
-                <div class="col-lg-6 col-12 px-5">
+                <div class="col-md-6 col-sm-12 px-5 d-flex justify-content-center align-items-center">
                     <img src="../assets/logo-transparent.png" role="presentation" class="img-fluid" />
                 </div>
                 <div class="mx-auto col-12 col-lg-6">

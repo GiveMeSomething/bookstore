@@ -22,4 +22,8 @@ public class HashPassword {
     public static boolean validatePassword(String password, String salt, String inputPassword) {
         return password.equals(getHashPassword(inputPassword, salt));
     }
+
+    public static void main(String[] args) {
+        System.out.println(getHashPassword("damlan", "20"));
+    }
 }

@@ -2,7 +2,7 @@ use SE1501_PRJ301;
 
 create table HE150277_HoangTienMinh_Users (
 	UserId int identity(1,1) PRIMARY KEY,
-	Usename nvarchar(30),
+	Username nvarchar(30),
 	[Password] nvarchar(100),
 	Email nvarchar(50),
 	PhoneNum nvarchar(24),
