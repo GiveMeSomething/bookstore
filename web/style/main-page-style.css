@@ -2,8 +2,20 @@
     padding: 0 !important;
 }
 
+.full-height-container {
+    height: 100vh;
+}
+
 .site-box-background {
     background: #000;
+}
+
+.navbar-button:hover {
+    background-color: #E5E7EB;
+}
+
+.navbar-link {
+    text-decoration: none;
 }
 
 .image-with-cover{

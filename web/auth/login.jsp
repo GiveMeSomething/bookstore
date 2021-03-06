@@ -6,14 +6,14 @@
         <title>JSP Page</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
         <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-        <link href="../style/globalStyle.css" rel="stylesheet" >
-        <link href="../style/auth.css" rel="stylesheet" >
+        <link href="${pageContext.request.contextPath}/style/auth.css" rel="stylesheet" type="text/css">
+        <link href="${pageContext.request.contextPath}/style/global-style.css" rel="stylesheet" type="text/css">
     </head>
     <body class="login-container">
         <div class="container d-flex align-items-center justify-content-center full-height-container">
             <div class="row ">
                 <div class="col-md-6 col-sm-12 px-5 d-flex justify-content-center align-items-center">
-                    <img src="../assets/logo-transparent.png" role="presentation" class="img-fluid" />
+                    <img src="${pageContext.request.contextPath}/assets/logo-transparent.png" role="presentation" class="img-fluid" />
                 </div>
                 <div class="mx-auto col-12 col-lg-6">
                     <div class="card mx-auto" style="width: 80%">

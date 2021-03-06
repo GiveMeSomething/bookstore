@@ -7,7 +7,7 @@
         <title>Welcome to Bookstore</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
         <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-        <link href="style/mainPageStyle.css" rel="stylesheet">
+        <link href="${pageContext.request.contextPath}/style/main-page-style.css" rel="stylesheet">
     </head>
     <body>
         <section id="navbar">
@@ -22,21 +22,21 @@
                             <div class="d-flex d-grid gap-4">
                                 <li class="nav-item">
                                     <button type="button"
-                                            class="nav-link active btn btn-link text-decoration-none"
+                                            class="nav-link active btn btn-link text-decoration-none navbar-button"
                                             href="#">
                                         Trang chủ
                                     </button>
                                 </li>
                                 <li class="nav-item">
                                     <button type="button"
-                                            class="nav-link active btn btn-link text-decoration-none"
+                                            class="nav-link active btn btn-link text-decoration-none navbar-button"
                                             href="store">
                                         Cửa hàng
                                     </button>
                                 </li>
                                 <li class="nav-item">
                                     <button type="button"
-                                            class="nav-link active btn btn-link text-decoration-none"
+                                            class="nav-link active btn btn-link text-decoration-none navbar-button"
                                             href="forum">
                                         Forum
                                     </button>
@@ -44,26 +44,28 @@
                                 <li class="nav-item">
                                     <button
                                         type="button"
-                                        class="nav-link active btn btn-link text-decoration-none"
+                                        class="nav-link active btn btn-link text-decoration-none navbar-button"
                                         href="event">
                                         Sự kiện
                                     </button>
                                 </li>
                                 <li class="nav-item">
-                                    <button
-                                        type="button"
-                                        class="nav-link active btn btn-link text-decoration-none"
-                                        href="signup">
-                                        Đăng kí
-                                    </button>
+                                    <a href="register" class="navbar-link">
+                                        <button
+                                            type="button"
+                                            class="nav-link active btn btn-link text-decoration-none navbar-button">
+                                            Đăng kí
+                                        </button>
+                                    </a>
                                 </li>
                                 <li class="nav-item">
-                                    <button
-                                        type="button"
-                                        class="nav-link active btn btn-link text-decoration-none"
-                                        href="signin">
-                                        Đăng nhập
-                                    </button>
+                                    <a href="login" class="navbar-link">
+                                        <button
+                                            type="button"
+                                            class="nav-link active btn btn-link text-decoration-none navbar-button">
+                                            Đăng nhập
+                                        </button>
+                                    </a>
                                 </li>
                             </div>
                         </ul>

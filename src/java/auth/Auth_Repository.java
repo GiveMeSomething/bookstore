@@ -74,7 +74,7 @@ public class Auth_Repository {
     }
 
     private boolean addUser(User user) throws SQLException {
-        String sql = "INSERT INTO HE150277_HoangTienMinh_Users (Email, Password, PhoneNum, Salt, Username) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO HE150277_HoangTienMinh_Users (Email, Password, PhoneNum, Salt, Username, Role) VALUES (?, ?, ?, ?, ?, ?)";
         boolean isInserted;
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
 
@@ -83,6 +83,7 @@ public class Auth_Repository {
             statement.setString(3, user.getPhoneNum());
             statement.setString(4, user.getSalt());
             statement.setString(5, user.getUsername());
+            statement.setString(6, "USER");
 
             // if affected row = 0 -> error and will be handle at service
             isInserted = statement.executeUpdate() > 0;
