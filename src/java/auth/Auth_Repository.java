@@ -64,7 +64,7 @@ public class Auth_Repository {
 
         String username = user.getUsername();
         String password = user.getPassword();
-        String email = user.getPhoneNum();
+        String email = user.getEmail();
         String phoneNum = user.getPhoneNum();
 
         if (isDuplicateUsername(username)) {
