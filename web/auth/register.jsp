@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -18,14 +19,14 @@
                 <div class="mx-auto col-md-6 col-sm-12">
                     <div class="card mx-auto" style="width: 80%">
                         <div class="card-body">
-                            <form action="../Auth_Controller" method="POST" class="needs-validation" novalidate>
+                            <form action="${pageContext.request.contextPath}/Auth_Controller" method="POST" class="needs-validation" novalidate>
                                 <div>
                                     <input
                                         class="form-control form-control-lg my-2"
                                         type="email"
                                         placeholder="Email"
                                         name="email"
-                                        pattern="/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/"
+                                        pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}"
                                         required
                                         data-value-missing="Trường này không được bỏ trống"
                                         data-pattern-mismatch="Email không hợp lệ"
@@ -40,7 +41,6 @@
                                         name="username"
                                         required
                                         maxlength="30"
-                                        minlength="8"
                                         data-value-missing="Trường này không được bỏ trống"
                                         data-too-long="Tên đăng nhập không được dài quá 30 kí tự"/>
                                     <div class="invalid-feedback"></div>
@@ -74,12 +74,19 @@
                                 </button>
                             </form>
                         </div>
+                        <c:if test='${requestScope["message"] != null}'>
+                            <div class="card-footer error-indicator">
+                                ${requestScope["message"]} hoặc <a href="${pageContext.request.contextPath}/login">
+                                    Đăng nhập
+                                </a>
+                            </div>
+                        </c:if>
                     </div>
                 </div>
             </div>
         </div>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
         <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-        <script src="../controller/validation.js"></script>
+        <script src="${pageContext.request.contextPath}/controller/validation.js"></script>
     </body>
 </html>

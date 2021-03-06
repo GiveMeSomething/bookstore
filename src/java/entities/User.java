@@ -21,12 +21,27 @@ public class User {
 
     }
 
+    // Use when login
     public User(String username, String password, String salt) {
         this.username = username;
         this.password = password;
         this.salt = salt;
+
+        this.email = "";
+        this.phoneNum = "";
     }
 
+    // Use when register
+    public User(String username, String password, String email, String phoneNum) {
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.phoneNum = phoneNum;
+
+        this.salt = "";
+    }
+
+    // Use when adding entry into db
     public User(String username, String password, String email, String phoneNum, String salt) {
         this.username = username;
         this.password = password;

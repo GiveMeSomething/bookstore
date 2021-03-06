@@ -7,6 +7,7 @@ create table HE150277_HoangTienMinh_Users (
 	Email nvarchar(50),
 	PhoneNum nvarchar(24),
 	Salt varchar(2),
+	[Role] varchar(10) NOT NULL DEFAULT 'USER',
 );
 
 create table HE150277_HoangTienMinh_Categories (

@@ -24,10 +24,10 @@ public class Auth_Repository {
 
     private void initConnection() {
         try {
-            if (connection == null && connection.isClosed()) {
+            if (connection == null || connection.isClosed()) {
                 connection = new DBContext().getConnection();
             }
-        } catch (SQLException e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
@@ -43,8 +43,11 @@ public class Auth_Repository {
 
     }
 
-    public boolean login(String username, String password) throws SQLException {
+    public boolean login(User user) throws SQLException {
         initConnection();
+
+        String username = user.getUsername();
+        String password = user.getPassword();
 
         User loginUser = getUser(username);
         if (loginUser == null) {
@@ -56,8 +59,13 @@ public class Auth_Repository {
         }
     }
 
-    public boolean register(String username, String password, String email, String phoneNum) throws SQLException {
+    public boolean register(User user) throws SQLException {
         initConnection();
+
+        String username = user.getUsername();
+        String password = user.getPassword();
+        String email = user.getPhoneNum();
+        String phoneNum = user.getPhoneNum();
 
         if (isDuplicateUsername(username)) {
             disconnect();
@@ -68,12 +76,13 @@ public class Auth_Repository {
             String salt = Integer.toString(rand.nextInt(90) + 9);
             String hashPassword = HashPassword.getHashPassword(password, salt);
 
-            disconnect();
             return addUser(new User(username, hashPassword, email, phoneNum, salt));
         }
     }
 
     private boolean addUser(User user) throws SQLException {
+        initConnection();
+
         String sql = "INSERT INTO HE150277_HoangTienMinh_Users (Email, Password, PhoneNum, Salt, Username, Role) VALUES (?, ?, ?, ?, ?, ?)";
         boolean isInserted;
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -86,12 +95,14 @@ public class Auth_Repository {
             statement.setString(6, "USER");
 
             // if affected row = 0 -> error and will be handle at service
-            isInserted = statement.executeUpdate() > 0;
+            isInserted = (statement.executeUpdate() > 0);
         }
         return isInserted;
     }
 
-    private User getUser(String username) throws SQLException {
+    public User getUser(String username) throws SQLException {
+        initConnection();
+
         String sql = "SELECT Username, Password, Salt FROM HE150277_HoangTienMinh_Users WHERE Username=?";
         PreparedStatement statement = connection.prepareStatement(sql);
 
@@ -117,6 +128,6 @@ public class Auth_Repository {
 
         // ResultSet return by executeQuery is empty or not
         // read more about ResultSet.next()
-        return !statement.executeQuery().next();
+        return statement.executeQuery().next();
     }
 }

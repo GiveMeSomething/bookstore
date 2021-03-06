@@ -1,9 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app
-    version="3.1"
-    xmlns="http://xmlns.jcp.org/xml/ns/javaee"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
+<web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
     <servlet>
         <servlet-name>Auth_Controller</servlet-name>
         <servlet-class>auth.Auth_Controller</servlet-class>
@@ -12,7 +8,6 @@
         <servlet-name>Books_Controller</servlet-name>
         <servlet-class>books.Books_Controller</servlet-class>
     </servlet>
-
     <servlet>
         <servlet-name>User_Register</servlet-name>
         <jsp-file>/auth/register.jsp</jsp-file>
@@ -25,7 +20,6 @@
         <servlet-name>MainPage</servlet-name>
         <jsp-file>/index.jsp</jsp-file>
     </servlet>
-
     <servlet-mapping>
         <servlet-name>Auth_Controller</servlet-name>
         <url-pattern>/Auth_Controller</url-pattern>
@@ -34,7 +28,6 @@
         <servlet-name>Books_Controller</servlet-name>
         <url-pattern>/Books_Controller</url-pattern>
     </servlet-mapping>
-
     <servlet-mapping>
         <servlet-name>User_Register</servlet-name>
         <url-pattern>/register</url-pattern>
@@ -47,10 +40,9 @@
         <servlet-name>MainPage</servlet-name>
         <url-pattern>/menu</url-pattern>
     </servlet-mapping>
-
     <session-config>
         <session-timeout>
-            30
+            3600
         </session-timeout>
     </session-config>
 </web-app>

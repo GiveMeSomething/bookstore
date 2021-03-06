@@ -1,3 +1,5 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@page import="entities.User"%>
 <%@page import="books.Books_Repository"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -10,6 +12,14 @@
         <link href="${pageContext.request.contextPath}/style/main-page-style.css" rel="stylesheet">
     </head>
     <body>
+        <%
+            User currentUser = (User) session.getAttribute("user");
+            String username;
+            boolean hasLogin = (currentUser != null);
+            if (hasLogin) {
+                username = currentUser.getUsername();
+            }
+        %>
         <section id="navbar">
             <div class="container">
                 <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -19,7 +29,7 @@
                     </button>
                     <div class="collapse navbar-collapse d-flex justify-content-md-end" id="navbarSupportedContent">
                         <ul class="navbar-nav">
-                            <div class="d-flex d-grid gap-4">
+                            <div class="d-flex d-grid gap-4 align-items-center">
                                 <li class="nav-item">
                                     <button type="button"
                                             class="nav-link active btn btn-link text-decoration-none navbar-button"
@@ -49,24 +59,46 @@
                                         Sự kiện
                                     </button>
                                 </li>
-                                <li class="nav-item">
-                                    <a href="register" class="navbar-link">
-                                        <button
-                                            type="button"
-                                            class="nav-link active btn btn-link text-decoration-none navbar-button">
-                                            Đăng kí
-                                        </button>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="login" class="navbar-link">
-                                        <button
-                                            type="button"
-                                            class="nav-link active btn btn-link text-decoration-none navbar-button">
-                                            Đăng nhập
-                                        </button>
-                                    </a>
-                                </li>
+                                <c:choose>
+                                    <c:when test="<%=hasLogin%>">
+                                        <div class="dropdown">
+                                            <button class="nav-link active btn btn-link
+                                                    text-decoration-none navbar-button d-flex align-items-center"
+                                                    type="button" id="user-dropdown"
+                                                    data-bs-toggle="dropdown"
+                                                    aria-expanded="false">
+                                                <img src="${pageContext.request.contextPath}/assets/avatar.png"
+                                                     height="40px" width="40px"/>
+                                                ${sessionScope.user.username}
+                                            </button>
+                                            <ul class="dropdown-menu" aria-labelledby="user-dropdown">
+                                                <li><a class="dropdown-item" href="#">Trang cá nhân</a></li>
+                                                <li><a class="dropdown-item" href="#">Giỏ hàng</a></li>
+                                                <li><a class="dropdown-item" href="#">Đăng xuất</a></li>
+                                            </ul>
+                                        </div>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <li class="nav-item">
+                                            <a href="register" class="navbar-link">
+                                                <button
+                                                    type="button"
+                                                    class="nav-link active btn btn-link text-decoration-none navbar-button">
+                                                    Đăng kí
+                                                </button>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="login" class="navbar-link">
+                                                <button
+                                                    type="button"
+                                                    class="nav-link active btn btn-link text-decoration-none navbar-button">
+                                                    Đăng nhập
+                                                </button>
+                                            </a>
+                                        </li>
+                                    </c:otherwise>
+                                </c:choose>
                             </div>
                         </ul>
                     </div>
