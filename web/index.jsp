@@ -338,7 +338,7 @@
             </div>
         </section>
         <section id="forumPreview">
-            <div class="my-5">
+            <div class="mt-5">
                 <div class="row g-0" style="margin: auto">
                     <div class="col-6" style="padding: 0" data-aos="fade-up">
                         <div class="d-flex align-items-center justify-content-center featured-image"
@@ -369,10 +369,10 @@
             </div>
         </section>
         <section id="footer">
-            <div class="my-5">
+            <div class="py-5">
                 <div class="row g-0">
                     <div class="col-md-6 col-sm-12 d-flex flex-column align-items-center justify-content-center">
-                        <h3>Theo dõi tin tức và sự kiện qua</h3>
+                        <h3 style=>Theo dõi tin tức và sự kiện qua</h3>
                         <div class="d-flex flex-row g-0 align-items-center gap-4 my-2">
                             <a href="#">
                                 <img src="assets/icons/facebook-brands.svg" style="height: 3rem" role="presentation" />
@@ -389,7 +389,7 @@
                         </div>
                     </div>
                     <div class="col-md-6 col-sm-12 d-flex flex-column align-items-center justify-content-center">
-                        <label for="newsletterEmail">
+                        <label for="newsletterEmail" class="mb-3">
                             <h3>Đăng kí nhận thông tin</h3>
                         </label>
                         <div class="container">
@@ -404,7 +404,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+
         </section>
     </body>
 
