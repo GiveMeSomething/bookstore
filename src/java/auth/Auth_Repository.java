@@ -40,7 +40,6 @@ public class Auth_Repository {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-
     }
 
     public boolean login(User user) throws SQLException {

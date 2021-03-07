@@ -62,3 +62,20 @@ create table HE150277_HoangTienMinh_OrderDetail (
 	Discount int,
 	PRIMARY KEY (OrderId, BookId),
 )
+
+create table HE150277_HoangTienMinh_City (
+	CityId int identity(1,1) PRIMARY KEY,
+	CityName nvarchar(30)
+)
+
+create table HE150277_HoangTienMinh_District (
+	DistrictId int identity(1,1) PRIMARY KEY,
+	CityId int FOREIGN KEY REFERENCES HE150277_HoangTienMinh_City(CityId),
+	DistrictName nvarchar(30)
+)
+
+create table HE150277_HoangTienMinh_SubDistrict (
+	SubDistrictId int identity(1,1) PRIMARY KEY,
+	DistrictId int FOREIGN KEY REFERENCES HE150277_HoangTienMinh_District(DistrictId),
+	SubDistrictName nvarchar(30)
+)
