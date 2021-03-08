@@ -36,7 +36,10 @@ public class Auth_Controller extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        if (request.getParameter("signout").equals("1")) {
+            request.getSession().removeAttribute("user");
+            response.sendRedirect(request.getContextPath());
+        }
     }
 
     /**

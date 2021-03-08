@@ -26,19 +26,19 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>Auth_Controller</servlet-name>
-        <url-pattern>/Auth_Controller</url-pattern>
+        <url-pattern>/auth</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>Books_Controller</servlet-name>
-        <url-pattern>/Books_Controller</url-pattern>
+        <url-pattern>/books</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>User_Register</servlet-name>
-        <url-pattern>/register</url-pattern>
+        <url-pattern>/auth/register</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>User_Login</servlet-name>
-        <url-pattern>/login</url-pattern>
+        <url-pattern>/auth/login</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>MainPage</servlet-name>

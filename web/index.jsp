@@ -74,13 +74,14 @@
                                             <ul class="dropdown-menu" aria-labelledby="user-dropdown">
                                                 <li><a class="dropdown-item" href="#">Trang cá nhân</a></li>
                                                 <li><a class="dropdown-item" href="#">Giỏ hàng</a></li>
-                                                <li><a class="dropdown-item" href="#">Đăng xuất</a></li>
+                                                <hr class="p-0 m-0 my-1"/>
+                                                <li><a class="dropdown-item" href="auth?signout=1">Đăng xuất</a></li>
                                             </ul>
                                         </div>
                                     </c:when>
                                     <c:otherwise>
                                         <li class="nav-item">
-                                            <a href="register" class="navbar-link">
+                                            <a href="auth/register" class="navbar-link">
                                                 <button
                                                     type="button"
                                                     class="nav-link active btn btn-link text-decoration-none navbar-button">
@@ -89,7 +90,7 @@
                                             </a>
                                         </li>
                                         <li class="nav-item">
-                                            <a href="login" class="navbar-link">
+                                            <a href="auth/login" class="navbar-link">
                                                 <button
                                                     type="button"
                                                     class="nav-link active btn btn-link text-decoration-none navbar-button">

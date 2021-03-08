@@ -19,7 +19,7 @@
                 <div class="mx-auto col-md-6 col-sm-12">
                     <div class="card mx-auto" style="width: 80%">
                         <div class="card-body">
-                            <form action="${pageContext.request.contextPath}/Auth_Controller" method="POST" class="needs-validation" novalidate>
+                            <form action="${pageContext.request.contextPath}/auth" method="POST" class="needs-validation" novalidate>
                                 <div>
                                     <input
                                         class="form-control form-control-lg my-2"

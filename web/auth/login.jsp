@@ -10,6 +10,11 @@
         <link href="${pageContext.request.contextPath}/style/global-style.css" rel="stylesheet" type="text/css">
     </head>
     <body class="login-container">
+        <%
+            if (session.getAttribute("user") != null) {
+                response.sendRedirect(request.getContextPath());
+            }
+        %>
         <div class="container d-flex align-items-center justify-content-center full-height-container">
             <div class="row ">
                 <div class="col-md-6 col-sm-12 px-5 d-flex justify-content-center align-items-center">
@@ -18,7 +23,7 @@
                 <div class="mx-auto col-12 col-lg-6">
                     <div class="card mx-auto" style="width: 80%">
                         <div class="card-body">
-                            <form action="${pageContext.request.contextPath}/Auth_Controller" method="post" class="needs-validation" novalidate>
+                            <form action="${pageContext.request.contextPath}/auth" method="post" class="needs-validation" novalidate>
                                 <div>
                                     <input
                                         class="form-control form-control-lg my-2"
