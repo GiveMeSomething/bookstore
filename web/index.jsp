@@ -72,10 +72,10 @@
                                                 ${sessionScope.user.username}
                                             </button>
                                             <ul class="dropdown-menu" aria-labelledby="user-dropdown">
-                                                <li><a class="dropdown-item" href="#">Trang cá nhân</a></li>
+                                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/user">Trang cá nhân</a></li>
                                                 <li><a class="dropdown-item" href="#">Giỏ hàng</a></li>
                                                 <hr class="p-0 m-0 my-1"/>
-                                                <li><a class="dropdown-item" href="auth?signout=1">Đăng xuất</a></li>
+                                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/auth?signout=1">Đăng xuất</a></li>
                                             </ul>
                                         </div>
                                     </c:when>
@@ -405,7 +405,6 @@
                         </div>
                     </div>
                 </div>
-
         </section>
     </body>
 

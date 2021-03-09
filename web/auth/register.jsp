@@ -76,7 +76,7 @@
                         </div>
                         <c:if test='${requestScope["message"] != null}'>
                             <div class="card-footer error-indicator">
-                                ${requestScope["message"]} hoặc <a href="${pageContext.request.contextPath}/login">
+                                ${requestScope["message"]} hoặc <a href="${pageContext.request.contextPath}/auth/login">
                                     Đăng nhập
                                 </a>
                             </div>

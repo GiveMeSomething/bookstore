@@ -9,7 +9,9 @@ import entities.ShippingAddress;
 import infrastructure.database.DBContext;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 /**
  *
@@ -60,4 +62,23 @@ public class Shipping_Repository {
         }
         return isInserted;
     }
+
+    public ShippingAddress[] getShippingAddress(String userId) {
+        initConnection();
+
+        ArrayList<ShippingAddress> addresses = new ArrayList<>();
+        String sql = "SELECT (DiaChi + ' ' + Phuong + ' ' + Quan + ' ' + ThanhPho) AS [ShippingAddr], Receiver, PhoneNum \n"
+                + "FROM HE150277_HoangTienMinh_ShippingInfo\n"
+                + "WHERE UserId = ?;";
+
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setString(1, userId);
+            ResultSet result = statement.executeQuery();
+
+            while (result.next()) {
+                addresses.add(new ShippingAddress(sql, userId, userId, userId, userId))
+            }
+        }
+    }
+
 }

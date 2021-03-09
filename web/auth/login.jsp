@@ -55,7 +55,7 @@
                                 </button>
                             </form>
                             <hr />
-                            <a href="${pageContext.request.contextPath}/register">
+                            <a href="${pageContext.request.contextPath}/auth/register">
                                 <button type="warning"
                                         class="btn btn-lg btn-warning my-3 px-4"
                                         style="width: 100%;color: white">

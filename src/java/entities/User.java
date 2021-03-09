@@ -16,6 +16,7 @@ public class User {
     private String email;
     private String phoneNum;
     private String salt;
+    private String role = "USER";
 
     public User() {
 

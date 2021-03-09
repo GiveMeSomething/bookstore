@@ -1,4 +1,3 @@
-use SE1501_PRJ301;
-
-z
-values ('admin@admin.bookstore.com','1m2i3n4h@1001', '0369568801', '00', 'admin')
+SELECT (DiaChi + ' ' + Phuong + ' ' + Quan + ' ' + ThanhPho) AS [ShippingAddr], Receiver, PhoneNum 
+FROM HE150277_HoangTienMinh_ShippingInfo
+WHERE UserId = '';

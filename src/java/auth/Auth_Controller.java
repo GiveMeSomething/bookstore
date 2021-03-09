@@ -78,10 +78,10 @@ public class Auth_Controller extends HttpServlet {
             } else {
                 if (work.equals("register")) {
                     request.setAttribute("message", auth_Service.getMessage());
-                    request.getRequestDispatcher("/register").forward(request, response);
+                    request.getRequestDispatcher("/auth/register").forward(request, response);
                 } else {
                     request.setAttribute("message", auth_Service.getMessage());
-                    request.getRequestDispatcher("/login").forward(request, response);
+                    request.getRequestDispatcher("/auth/login").forward(request, response);
                 }
             }
         } catch (SQLException e) {

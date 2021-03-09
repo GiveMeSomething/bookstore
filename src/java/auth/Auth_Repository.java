@@ -99,7 +99,7 @@ public class Auth_Repository {
         return isInserted;
     }
 
-    public User getUser(String username) throws SQLException {
+    private User getUser(String username) throws SQLException {
         initConnection();
 
         String sql = "SELECT Username, Password, Salt FROM HE150277_HoangTienMinh_Users WHERE Username=?";
@@ -114,6 +114,29 @@ public class Auth_Repository {
             String salt = result.getString("Salt");
             result.close();
             return new User(username, password, salt);
+        } else {
+            result.close();
+            return null;
+        }
+    }
+
+    public User getUserSecure(String username) throws SQLException {
+        initConnection();
+
+        String sql = "SELECT Username, Email, PhoneNum FROM HE150277_HoangTienMinh_Users WHERE Username=?";
+        PreparedStatement statement = connection.prepareStatement(sql);
+
+        statement.setString(1, username);
+
+        ResultSet result = statement.executeQuery();
+
+        if (result.next()) {
+            String email = result.getString("email");
+            String phoneNum = result.getString("phoneNum");
+
+            result.close();
+            // without password and salt (sensitive data)
+            return new User(username, "", email, phoneNum, "");
         } else {
             result.close();
             return null;
