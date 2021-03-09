@@ -14,11 +14,11 @@ import java.sql.SQLException;
  */
 public class Auth_Service {
 
-    private Auth_Repository auth_Repository;
+    private final Auth_Repository auth_Repository;
     private String message;
 
     public Auth_Service() {
-        auth_Repository = new Auth_Repository();
+        this.auth_Repository = new Auth_Repository();
         this.message = "";
     }
 

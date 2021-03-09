@@ -17,11 +17,11 @@ import javax.servlet.http.HttpSession;
 // specified for receiving and forwarding request and response
 public class Auth_Controller extends HttpServlet {
 
-    Auth_Service auth_Service;
+    private Auth_Service auth_Service;
 
     @Override
     public void init() throws ServletException {
-        auth_Service = new Auth_Service();
+        this.auth_Service = new Auth_Service();
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

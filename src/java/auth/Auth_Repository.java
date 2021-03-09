@@ -9,9 +9,9 @@ import entities.User;
 import infrastructure.database.DBContext;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Random;
+import users.User_Repository;
 import utility.HashPassword;
 
 /**
@@ -20,7 +20,13 @@ import utility.HashPassword;
  */
 public class Auth_Repository {
 
+    private final User_Repository user_Repository;
+
     private Connection connection;
+
+    public Auth_Repository() {
+        this.user_Repository = new User_Repository();
+    }
 
     private void initConnection() {
         try {
@@ -48,7 +54,7 @@ public class Auth_Repository {
         String username = user.getUsername();
         String password = user.getPassword();
 
-        User loginUser = getUser(username);
+        User loginUser = user_Repository.getUser(username);
         if (loginUser == null) {
             disconnect();
             return false;
@@ -75,71 +81,7 @@ public class Auth_Repository {
             String salt = Integer.toString(rand.nextInt(90) + 9);
             String hashPassword = HashPassword.getHashPassword(password, salt);
 
-            return addUser(new User(username, hashPassword, email, phoneNum, salt));
-        }
-    }
-
-    private boolean addUser(User user) throws SQLException {
-        initConnection();
-
-        String sql = "INSERT INTO HE150277_HoangTienMinh_Users (Email, Password, PhoneNum, Salt, Username, Role) VALUES (?, ?, ?, ?, ?, ?)";
-        boolean isInserted;
-        try (PreparedStatement statement = connection.prepareStatement(sql)) {
-
-            statement.setString(1, user.getEmail());
-            statement.setString(2, user.getPassword());
-            statement.setString(3, user.getPhoneNum());
-            statement.setString(4, user.getSalt());
-            statement.setString(5, user.getUsername());
-            statement.setString(6, "USER");
-
-            // if affected row = 0 -> error and will be handle at service
-            isInserted = (statement.executeUpdate() > 0);
-        }
-        return isInserted;
-    }
-
-    private User getUser(String username) throws SQLException {
-        initConnection();
-
-        String sql = "SELECT Username, Password, Salt FROM HE150277_HoangTienMinh_Users WHERE Username=?";
-        PreparedStatement statement = connection.prepareStatement(sql);
-
-        statement.setString(1, username);
-
-        ResultSet result = statement.executeQuery();
-
-        if (result.next()) {
-            String password = result.getString("Password");
-            String salt = result.getString("Salt");
-            result.close();
-            return new User(username, password, salt);
-        } else {
-            result.close();
-            return null;
-        }
-    }
-
-    public User getUserSecure(String username) throws SQLException {
-        initConnection();
-
-        String sql = "SELECT Username, Email, PhoneNum FROM HE150277_HoangTienMinh_Users WHERE Username=?";
-        PreparedStatement statement = connection.prepareStatement(sql);
-
-        statement.setString(1, username);
-
-        ResultSet result = statement.executeQuery();
-
-        if (result.next()) {
-            String email = result.getString("email");
-            String phoneNum = result.getString("phoneNum");
-
-            result.close();
-            // without password and salt (sensitive data)
-            return new User(username, "", email, phoneNum, "");
-        } else {
-            result.close();
-            return null;
+            return user_Repository.addUser(new User(username, hashPassword, email, phoneNum, salt));
         }
     }
 
