@@ -16,8 +16,6 @@
             if (!hasLogin) {
                 response.sendRedirect(request.getContextPath() + "/auth/login");
             }
-
-
         %>
         <c:set var="email" value='${sessionScope.user.getEmail()}' />
         <c:set var="phoneNum" value="${sessionScope.user.phoneNum}" />
