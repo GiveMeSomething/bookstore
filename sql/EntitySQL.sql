@@ -22,8 +22,7 @@ create table HE150277_HoangTienMinh_ShippingInfo (
 	ThanhPho nvarchar(20),
 	Quan nvarchar(20),
 	Phuong nvarchar(20),
-	DiaChi nvarchar(50),
-	Receiver nvarchar(50),
+	DiaChi nvarchar(200),
 	PhoneNum nvarchar(24),
 )
 

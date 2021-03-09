@@ -9,22 +9,26 @@ package entities;
  *
  * @author Admin
  */
-public class ShippingAddress {
+public class ShippingInfo {
 
+    private int shippingInfoId;
     private String city;
     private String district;
     private String subDistrict;
     private String address;
     private String phoneNum;
-    private String receiver;
 
-    public ShippingAddress(String city, String district, String subDistrict, String address, String phoneNum) {
+    public ShippingInfo(int shippingInfoId, String city, String district, String subDistrict, String address, String phoneNum) {
+        this.shippingInfoId = shippingInfoId;
         this.city = city;
         this.district = district;
         this.subDistrict = subDistrict;
         this.address = address;
         this.phoneNum = phoneNum;
-        this.receiver = receiver;
+    }
+
+    public int getShippingInfoId() {
+        return shippingInfoId;
     }
 
     public String getCity() {
@@ -47,12 +51,7 @@ public class ShippingAddress {
         return phoneNum;
     }
 
-    public String getReceiver() {
-        return receiver;
-    }
-
     public String getFullAddress() {
-        return this.address + ", " + this.subDistrict + ", " + this.district + ", " + this.city;
+        return address + ", " + subDistrict + ", " + district + ", " + city;
     }
-
 }

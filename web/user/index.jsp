@@ -16,6 +16,8 @@
             if (!hasLogin) {
                 response.sendRedirect(request.getContextPath() + "/auth/login");
             }
+
+
         %>
         <c:set var="email" value='${sessionScope.user.getEmail()}' />
         <c:set var="phoneNum" value="${sessionScope.user.phoneNum}" />
@@ -185,34 +187,16 @@
                     </c:choose>
                     <div class="row mt-5">
                         <h3>Sổ địa chỉ:</h3>
-                        <table class="table">
+                        <table class="table table-striped">
                             <thead>
                                 <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">First</th>
-                                    <th scope="col">Last</th>
-                                    <th scope="col">Handle</th>
+                                    <th scope="col">STT</th>
+                                    <th scope="col">Địa chỉ</th>
+                                    <th scope="col">SĐT</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <th scope="row">1</th>
-                                    <td>Mark</td>
-                                    <td>Otto</td>
-                                    <td>@mdo</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">2</th>
-                                    <td>Jacob</td>
-                                    <td>Thornton</td>
-                                    <td>@fat</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">3</th>
-                                    <td>Larry</td>
-                                    <td>the Bird</td>
-                                    <td>@twitter</td>
-                                </tr>
+
                             </tbody>
                         </table>
                     </div>

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package books;
+package shippingAddr;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -15,14 +15,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Admin
  */
-public class Books_Controller extends HttpServlet {
-
-    private Books_Service books_Service;
-
-    @Override
-    public void init() throws ServletException {
-        books_Service = new Books_Service();
-    }
+public class ShippingInfo_Controller extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -36,9 +29,4 @@ public class Books_Controller extends HttpServlet {
 
     }
 
-    @Override
-    protected void doDelete(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-
-    }
 }
