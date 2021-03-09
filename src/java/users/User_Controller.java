@@ -51,6 +51,7 @@ public class User_Controller extends HttpServlet {
         try {
             boolean isUpdated = this.user_Service.updateUser(updateUser);
             if (isUpdated) {
+                session.setAttribute("user", this.user_Service.getUser(currentUser.getUsername()));
                 response.sendRedirect(request.getContextPath() + "/user");
             } else {
                 request.setAttribute("message", this.user_Service.getMessage());

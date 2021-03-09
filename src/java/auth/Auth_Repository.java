@@ -85,6 +85,10 @@ public class Auth_Repository {
         }
     }
 
+    public User getUser(String username) throws SQLException {
+        return this.user_Repository.getUserSecure(username);
+    }
+
     private boolean isDuplicateUsername(String username) throws SQLException {
         String sql = "SELECT Username FROM HE150277_HoangTienMinh_Users WHERE Username=?";
         PreparedStatement statement = connection.prepareStatement(sql);

@@ -39,7 +39,7 @@ public class Auth_Service {
     }
 
     public User getUser(String username) throws SQLException {
-        return auth_Repository.getUserSecure(username);
+        return auth_Repository.getUser(username);
     }
 
     public String getMessage() {

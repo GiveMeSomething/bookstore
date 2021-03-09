@@ -18,8 +18,8 @@
             }
         %>
         <c:set var="email" value='${sessionScope.user.getEmail()}' />
-        <c:set var="phoneNum" value="${user.phoneNum}" />
-        <c:set var="username" value="${user.username}" />
+        <c:set var="phoneNum" value="${sessionScope.user.phoneNum}" />
+        <c:set var="username" value="${sessionScope.user.username}" />
         <section id="navbar">
             <div class="container">
                 <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -117,7 +117,7 @@
                 <div class="col-8 justify-content-center mt-5">
                     <c:choose>
                         <c:when test="${param.editInfo}">
-                            <form action="${pageContext.request.contextPath}/user"
+                            <form action="${pageContext.request.contextPath}/update-user"
                                   method="POST"
                                   class="needs-validation"
                                   novalidate>

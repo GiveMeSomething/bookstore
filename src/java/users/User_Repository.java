@@ -64,10 +64,10 @@ public class User_Repository {
     public boolean updateUser(User user) throws SQLException {
         initConnection();
 
-        String sql = "UPDATE HE150277_HoangTienMinh_Users SET Email = ?, PhoneNum = ? WHERE Username = ?";
+        String sql = "UPDATE HE150277_HoangTienMinh_Users SET Email=?, PhoneNum=? WHERE Username=?";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, user.getEmail());
-            statement.setString(2, user.getPassword());
+            statement.setString(2, user.getPhoneNum());
             statement.setString(3, user.getUsername());
 
             boolean isUpdated = statement.executeUpdate() > 0;

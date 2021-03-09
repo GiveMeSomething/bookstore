@@ -31,6 +31,10 @@ public class User_Service {
         return success;
     }
 
+    public User getUser(String username) throws SQLException {
+        return this.user_Repository.getUserSecure(username);
+    }
+
     public String getMessage() {
         return message;
     }
