@@ -18,8 +18,18 @@ public class ShippingInfo {
     private String address;
     private String phoneNum;
 
+    //default constructor with full value
     public ShippingInfo(int shippingInfoId, String city, String district, String subDistrict, String address, String phoneNum) {
         this.shippingInfoId = shippingInfoId;
+        this.city = city;
+        this.district = district;
+        this.subDistrict = subDistrict;
+        this.address = address;
+        this.phoneNum = phoneNum;
+    }
+
+    // for adding new entry
+    public ShippingInfo(String city, String district, String subDistrict, String address, String phoneNum) {
         this.city = city;
         this.district = district;
         this.subDistrict = subDistrict;

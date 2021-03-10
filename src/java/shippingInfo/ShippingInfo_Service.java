@@ -1,4 +1,4 @@
-package shippingAddr;
+package shippingInfo;
 
 import entities.ShippingInfo;
 import java.sql.SQLException;
@@ -25,7 +25,7 @@ public class ShippingInfo_Service {
         return this.shipping_Repository.getShippingAddress(userId);
     }
 
-    public boolean updateShippingAddress(ShippingInfo shippingInfo) {
+    public boolean updateShippingAddress(ShippingInfo shippingInfo) throws SQLException {
         boolean isUpdated = this.shipping_Repository.updateShippingAddress(shippingInfo);
         if (!isUpdated) {
             this.message = "Cập nhập địa chỉ thất bại.";
@@ -33,7 +33,7 @@ public class ShippingInfo_Service {
         return isUpdated;
     }
 
-    public boolean deleteShippingAddress(int shippingInfoId) {
+    public boolean deleteShippingAddress(int shippingInfoId) throws SQLException {
         boolean isDeleted = this.shipping_Repository.deleteShippingAddress(shippingInfoId);
         if (!isDeleted) {
             this.message = "Xóa địa chỉ thất bại";

@@ -1,4 +1,4 @@
-package shippingAddr;
+package shippingInfo;
 
 import entities.ShippingInfo;
 import infrastructure.database.DBContext;
@@ -32,7 +32,7 @@ public class ShippingInfo_Repository {
         }
     }
 
-    public boolean addShippingAddress(ShippingInfo shippingInfo, String userId) throws SQLException {
+    public boolean addShippingAddress(ShippingInfo shippingInfo, String username) throws SQLException {
         initConnection();
 
         String sql = "INSERT INTO HE150277_HoangTienMinh_ShippingAddress (UserId, ThanhPho, Quan, Phuong, DiaChi, Receiver, PhoneNum) "
@@ -54,7 +54,7 @@ public class ShippingInfo_Repository {
         return isInserted;
     }
 
-    public ArrayList<ShippingInfo> getShippingAddress(String userId) throws SQLException {
+    public ArrayList<ShippingInfo> getShippingAddress(String username) throws SQLException {
         initConnection();
 
         ArrayList<ShippingInfo> addressList = new ArrayList<>();
@@ -62,23 +62,24 @@ public class ShippingInfo_Repository {
                 + "FROM HE150277_HoangTienMinh_ShippingInfo\n"
                 + "WHERE UserId = ?;";
 
+        int id;
         String address;
         String subDistrict;
         String district;
         String city;
         String phoneNum;
-        int id;
+
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, userId);
             ResultSet result = statement.executeQuery();
 
             while (result.next()) {
-                address = result.getString("DiaChi");
-                subDistrict = result.getString("Phuong");
-                district = result.getString("Quan");
-                city = result.getString("ThanhPho");
-                phoneNum = result.getString("PhoneNum");
                 id = result.getInt("ShippingInfoId");
+                city = result.getString("ThanhPho");
+                district = result.getString("Quan");
+                subDistrict = result.getString("Phuong");
+                address = result.getString("DiaChi");
+                phoneNum = result.getString("PhoneNum");
 
                 addressList.add(new ShippingInfo(id, city, district, subDistrict, address, phoneNum));
             }

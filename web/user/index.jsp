@@ -1,3 +1,5 @@
+<%@page import="entities.ShippingInfo"%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="entities.User"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -12,14 +14,23 @@
     </head>
     <body>
         <%
+
             boolean hasLogin = (session.getAttribute("user") != null);
             if (!hasLogin) {
                 response.sendRedirect(request.getContextPath() + "/auth/login");
             }
+
+            ArrayList<ShippingInfo> addressList = (ArrayList<ShippingInfo>) request.getAttribute("addressList");
+            if (addressList == null) {
+                request.setAttribute("work", "fetch");
+                request.getRequestDispatcher(request.getContextPath() + "/shipping-info").forward(request, response);
+            }
+
         %>
-        <c:set var="email" value='${sessionScope.user.getEmail()}' />
+        <c:set var="email" value='${sessionScope.user.email}' />
         <c:set var="phoneNum" value="${sessionScope.user.phoneNum}" />
         <c:set var="username" value="${sessionScope.user.username}" />
+        <c:set var="addressList" value="${requestScope.addressList}" />
         <section id="navbar">
             <div class="container">
                 <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -194,7 +205,13 @@
                                 </tr>
                             </thead>
                             <tbody>
-
+                                <c:forEach var="address" items='${addressList}'>
+                                    <tr>
+                                        <th scope="row">${address}.shippingInfoId</th>
+                                        <td>${address}.getFullAddress()</td>
+                                        <td>address.phoneNum</td>
+                                    </tr>
+                                </c:forEach>
                             </tbody>
                         </table>
                     </div>

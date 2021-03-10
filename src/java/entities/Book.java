@@ -11,6 +11,7 @@ package entities;
  */
 public class Book {
 
+    private int bookId;
     private String bookName;
     private String brand;
     private double unitPrice;
@@ -20,12 +21,36 @@ public class Book {
     public Book() {
     }
 
-    public Book(String bookName, String brand, double unitPrice, int unitInStock, int supplier) {
+    public Book(String bookName, String brand, double unitPrice, int unitInStock, int supplier, int bookId) {
         this.bookName = bookName;
         this.brand = brand;
         this.unitPrice = unitPrice;
         this.unitInStock = unitInStock;
         this.supplier = supplier;
+        this.bookId = bookId;
     }
 
+    public int getBookId() {
+        return bookId;
+    }
+
+    public String getBookName() {
+        return bookName;
+    }
+
+    public String getBrand() {
+        return brand;
+    }
+
+    public double getUnitPrice() {
+        return unitPrice;
+    }
+
+    public int getUnitInStock() {
+        return unitInStock;
+    }
+
+    public int getSupplier() {
+        return supplier;
+    }
 }

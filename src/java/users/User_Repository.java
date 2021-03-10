@@ -43,7 +43,8 @@ public class User_Repository {
     public boolean addUser(User user) throws SQLException {
         initConnection();
 
-        String sql = "INSERT INTO HE150277_HoangTienMinh_Users (Email, Password, PhoneNum, Salt, Username, Role) VALUES (?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO HE150277_HoangTienMinh_Users (Email, Password, PhoneNum, Salt, Username, Role) "
+                + "VALUES (?, ?, ?, ?, ?, ?)";
         boolean isInserted;
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
 
@@ -64,7 +65,8 @@ public class User_Repository {
     public boolean updateUser(User user) throws SQLException {
         initConnection();
 
-        String sql = "UPDATE HE150277_HoangTienMinh_Users SET Email=?, PhoneNum=? WHERE Username=?";
+        String sql = "UPDATE HE150277_HoangTienMinh_Users SET Email=?, PhoneNum=? "
+                + "WHERE Username=?";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, user.getEmail());
             statement.setString(2, user.getPhoneNum());
@@ -80,7 +82,8 @@ public class User_Repository {
     public User getUser(String username) throws SQLException {
         initConnection();
 
-        String sql = "SELECT Username, Password, Salt FROM HE150277_HoangTienMinh_Users WHERE Username=?";
+        String sql = "SELECT Username, Password, Salt FROM HE150277_HoangTienMinh_Users "
+                + "WHERE Username=?";
         PreparedStatement statement = connection.prepareStatement(sql);
 
         statement.setString(1, username);
@@ -107,7 +110,8 @@ public class User_Repository {
     public User getUserSecure(String username) throws SQLException {
         initConnection();
 
-        String sql = "SELECT Username, Email, PhoneNum FROM HE150277_HoangTienMinh_Users WHERE Username=?";
+        String sql = "SELECT Username, Email, PhoneNum FROM HE150277_HoangTienMinh_Users "
+                + "WHERE Username=?";
         PreparedStatement statement = connection.prepareStatement(sql);
 
         statement.setString(1, username);
@@ -126,5 +130,4 @@ public class User_Repository {
             return null;
         }
     }
-
 }
