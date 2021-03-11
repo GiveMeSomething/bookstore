@@ -21,16 +21,17 @@
             if (!hasLogin) {
                 response.sendRedirect(request.getContextPath() + "/auth/login");
             }
+            session.setAttribute("redirectTo", "/user/shipping/add.jsp");
         %>
         <c:set var="addressList" value='${sessionScope.addressList}' />
-        <div class="container my-5" data-aos="fade-up" data-aos-duration="1000">
+        <div class="container my-5" data-aos="fade-up" data-aos-duration="700">
             <h2>Sổ địa chỉ</h2>
             <c:choose>
                 <c:when test="${empty addressList}">
                     <div class="row mt-5">
                         <div class="col-12" style="font-size:1.5rem">
                             Danh sách địa chỉ đang trống.
-                            <a class="link-like-btn" type="button" href="${pageContext.request.contextPath}/user/shipping/add.jsp">
+                            <a class="link-like-btn" type="button" href="${pageContext.request.contextPath}/address">
                                 Thêm ngay
                             </a>
                         </div>
@@ -54,9 +55,6 @@
                                         <td>${address.getFullAddress()}</td>
                                         <td>${address.phoneNum}</td>
                                         <td>
-                                            <button type="submit" name="shipping-info-action" value="update" class="btn btn-primary">
-                                                Sửa
-                                            </button>
                                             <button type="submit" name="shipping-info-action" value="delete" class="btn btn-danger">
                                                 Xóa
                                             </button>

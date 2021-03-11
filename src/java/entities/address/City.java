@@ -2,23 +2,23 @@ package entities.address;
 
 public class City {
 
-    private int cityId;
-    private String cityName;
+    private int id;
+    private String name;
 
     public City() {
     }
 
-    public City(int cityId, String cityName) {
-        this.cityId = cityId;
-        this.cityName = cityName;
+    public City(int id, String name) {
+        this.id = id;
+        this.name = name;
     }
 
-    public int getCityId() {
-        return cityId;
+    public int getId() {
+        return id;
     }
 
-    public String getCityName() {
-        return cityName;
+    public String getName() {
+        return name;
     }
 
 }

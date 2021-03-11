@@ -99,7 +99,7 @@ public class Address_Repository {
                 subDistrictList.add(new SubDistrict(
                         result.getInt("SubDistrictId"),
                         result.getString("SubDistrictName"),
-                        result.getInt("DsitrictId")
+                        result.getInt("DistrictId")
                 ));
             }
 

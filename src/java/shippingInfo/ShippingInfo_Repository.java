@@ -35,18 +35,18 @@ public class ShippingInfo_Repository {
     public boolean addShippingAddress(ShippingInfo shippingInfo, String username) throws SQLException {
         initConnection();
 
-        String sql = "INSERT INTO HE150277_HoangTienMinh_ShippingAddress (UserId, ThanhPho, Quan, Phuong, DiaChi, Receiver, PhoneNum) "
-                + "VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO HE150277_HoangTienMinh_ShippingInfo (UserId, ThanhPho, Quan, Phuong, DiaChi, PhoneNum)\n"
+                + "VALUES ((SELECT UserId FROM HE150277_HoangTienMinh_Users WHERE Username = ?), ?, ?, ?, N?, ?)\n";
 
         boolean isInserted;
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
 
-            statement.setString(1, userId);
+            statement.setString(1, username);
             statement.setString(2, shippingInfo.getCity());
             statement.setString(3, shippingInfo.getDistrict());
             statement.setString(4, shippingInfo.getSubDistrict());
             statement.setString(5, shippingInfo.getAddress());
-            statement.setString(7, shippingInfo.getPhoneNum());
+            statement.setString(6, shippingInfo.getPhoneNum());
 
             // if affected row = 0 -> error and will be handle at service
             isInserted = (statement.executeUpdate() > 0);

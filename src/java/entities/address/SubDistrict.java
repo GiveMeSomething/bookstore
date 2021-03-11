@@ -2,25 +2,25 @@ package entities.address;
 
 public class SubDistrict {
 
-    private int subDistrictId;
-    private String sudDistrictName;
+    private int id;
+    private String name;
     private int districtId;
 
     public SubDistrict() {
     }
 
-    public SubDistrict(int subDistrictId, String sudDistrictName, int districtId) {
-        this.subDistrictId = subDistrictId;
-        this.sudDistrictName = sudDistrictName;
+    public SubDistrict(int id, String name, int districtId) {
+        this.id = id;
+        this.name = name;
         this.districtId = districtId;
     }
 
-    public int getSubDistrictId() {
-        return subDistrictId;
+    public int getId() {
+        return id;
     }
 
-    public String getSudDistrictName() {
-        return sudDistrictName;
+    public String getName() {
+        return name;
     }
 
     public int getDistrictId() {

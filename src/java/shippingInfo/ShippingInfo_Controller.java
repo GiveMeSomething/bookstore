@@ -2,6 +2,9 @@ package shippingInfo;
 
 import entities.ShippingInfo;
 import entities.User;
+import entities.address.City;
+import entities.address.District;
+import entities.address.SubDistrict;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -31,47 +34,53 @@ public class ShippingInfo_Controller extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        System.out.println("request run in POST");
-//        String work = (String) request.getAttribute("work");
-//        switch (work) {
-//            case "add":
-//                this.addShippingInfo(request, response);
-//                break;
-//            case "udapte":
-//                this.updateShippingInfo(request, response);
-//                break;
-//            case "delete":
-//                this.deleteShippingInfo(request, response);
-//                break;
-//            default:
-//                response.sendRedirect(request.getContextPath());
-//                break;
-//        }
+        String work = (String) request.getParameter("work");
+        switch (work) {
+            case "add":
+                this.addShippingInfo(request, response);
+                break;
+            case "udapte":
+                this.updateShippingInfo(request, response);
+                break;
+            case "delete":
+                this.deleteShippingInfo(request, response);
+                break;
+            default:
+                response.sendRedirect(request.getContextPath());
+                break;
+        }
     }
 
     private void addShippingInfo(HttpServletRequest request, HttpServletResponse response) {
         try {
-            String city = request.getParameter("city");
-            String district = request.getParameter("district");
-            String subDistrict = request.getParameter("subDistrict");
-            String address = request.getParameter("address");
-            String phoneNum = request.getParameter("phoneNum");
-
             User currentUser = (User) request.getSession().getAttribute("user");
 
-            boolean isAdded = shippingInfo_Service.addShippingAddress(
-                    new ShippingInfo(city, district, subDistrict, address, phoneNum),
-                    currentUser.getUsername());
+            if (checkAddressCombination(request)) {
+                boolean isAdded = shippingInfo_Service.addShippingAddress(
+                        new ShippingInfo(
+                                getCityFromIndex(request, Integer.parseInt(request.getParameter("city"))).getName(),
+                                getDistrictFromIndex(request, Integer.parseInt(request.getParameter("district"))).getName(),
+                                getSubDistrictFromIndex(request, Integer.parseInt(request.getParameter("subDistrict"))).getName(),
+                                request.getParameter("address"),
+                                request.getParameter("phoneNum")
+                        ),
+                        currentUser.getUsername()
+                );
 
-            // process base on query result
-            if (!isAdded) {
-                request.setAttribute("message", this.shippingInfo_Service.getMessage());
-                request.getRequestDispatcher(request.getContextPath() + "/user");
+                // process base on query result
+                if (!isAdded) {
+                    request.setAttribute("message", this.shippingInfo_Service.getMessage());
+                    request.getRequestDispatcher(request.getContextPath() + "/user/shipping.jsp");
+                } else {
+                    this.getShippingInfo(request, response);
+                }
             } else {
-                response.sendRedirect(request.getContextPath() + "/user");
+                request.setAttribute("message", "Địa chỉ không hợp lệ. Vui lòng kiểm tra lại");
+                request.getRequestDispatcher(request.getContextPath() + "/user/shipping/add.jsp");
             }
+
         } catch (IOException | SQLException e) {
-            System.out.println(e.getCause());
+            e.printStackTrace();
         }
     }
 
@@ -141,5 +150,30 @@ public class ShippingInfo_Controller extends HttpServlet {
         }
 
         return currentUser;
+    }
+
+    private boolean checkAddressCombination(HttpServletRequest request) {
+
+        City inputCity = getCityFromIndex(request, Integer.parseInt(request.getParameter("city")));
+        District inputDistrict = getDistrictFromIndex(request, Integer.parseInt(request.getParameter("district")));
+        SubDistrict inputSubDistrict = getSubDistrictFromIndex(request, Integer.parseInt(request.getParameter("subDistrict")));
+
+        return (inputCity.getId() == inputDistrict.getCityId())
+                && (inputDistrict.getId() == inputSubDistrict.getDistrictId());
+    }
+
+    private City getCityFromIndex(HttpServletRequest request, int index) {
+        ArrayList<City> cityList = (ArrayList<City>) request.getSession().getAttribute("cityList");
+        return cityList.get(index);
+    }
+
+    private District getDistrictFromIndex(HttpServletRequest request, int index) {
+        ArrayList<District> districtList = (ArrayList<District>) request.getSession().getAttribute("districtList");
+        return districtList.get(index);
+    }
+
+    private SubDistrict getSubDistrictFromIndex(HttpServletRequest request, int index) {
+        ArrayList<SubDistrict> subDistrictList = (ArrayList<SubDistrict>) request.getSession().getAttribute("subDistrictList");
+        return subDistrictList.get(index);
     }
 }

@@ -109,7 +109,7 @@
                 </nav>
             </div>
         </section>
-        <div class="container my-5" data-aos="fade-up" data-aos-duration="1000">
+        <div class="container my-5" data-aos="fade-up" data-aos-duration="700">
             <div class="row">
                 <div class="col-4">
                     <div class="d-flex flex-column justify-content-center align-items-center">

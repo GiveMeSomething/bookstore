@@ -2,25 +2,25 @@ package entities.address;
 
 public class District {
 
-    private int districtId;
-    private String districtName;
+    private int id;
+    private String name;
     private int cityId;
 
     public District() {
     }
 
-    public District(int districtId, String districtName, int cityId) {
-        this.districtId = districtId;
-        this.districtName = districtName;
+    public District(int id, String name, int cityId) {
+        this.id = id;
+        this.name = name;
         this.cityId = cityId;
     }
 
-    public int getDistrictId() {
-        return districtId;
+    public int getId() {
+        return id;
     }
 
-    public String getDistrictName() {
-        return districtName;
+    public String getName() {
+        return name;
     }
 
     public int getCityId() {
