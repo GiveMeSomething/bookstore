@@ -17,17 +17,20 @@
     <body>
         <!--Navbar will be put here-->
         <%
-
+            boolean hasLogin = (session.getAttribute("user") != null);
+            if (!hasLogin) {
+                response.sendRedirect(request.getContextPath() + "/auth/login");
+            }
         %>
         <c:set var="addressList" value='${sessionScope.addressList}' />
         <div class="container my-5" data-aos="fade-up" data-aos-duration="1000">
             <h2>Sổ địa chỉ</h2>
             <c:choose>
                 <c:when test="${empty addressList}">
-                    <div class="row">
-                        <div class="col-12">
+                    <div class="row mt-5">
+                        <div class="col-12" style="font-size:1.5rem">
                             Danh sách địa chỉ đang trống.
-                            <a class="link-like-btn btn" type="button" data-bs-toggle="modal" data-bs-target="#addShippingInfoModal">
+                            <a class="link-like-btn" type="button" href="${pageContext.request.contextPath}/user/shipping/add.jsp">
                                 Thêm ngay
                             </a>
                         </div>
@@ -66,26 +69,6 @@
                     </form>
                 </c:otherwise>
             </c:choose>
-
-        </div>
-        <div class="container">
-            <div class="modal mx-auto" id="addShippingInfoModal" tabindex="-1">
-                <div class="modal-dialog modal-lg">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            Something herer
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary">Save changes</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
     </body>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
