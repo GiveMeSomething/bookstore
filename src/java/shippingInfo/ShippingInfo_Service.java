@@ -13,16 +13,16 @@ public class ShippingInfo_Service {
         this.shipping_Repository = new ShippingInfo_Repository();
     }
 
-    public boolean addShippingAddress(ShippingInfo shippingInfo, String userId) throws SQLException {
-        boolean isAdded = this.shipping_Repository.addShippingAddress(shippingInfo, userId);
+    public boolean addShippingAddress(ShippingInfo shippingInfo, String username) throws SQLException {
+        boolean isAdded = this.shipping_Repository.addShippingAddress(shippingInfo, username);
         if (!isAdded) {
             this.message = "Thêm địa chỉ thất bại. Vui lòng thử lại sau.";
         }
         return isAdded;
     }
 
-    public ArrayList<ShippingInfo> getShippingAddress(String userId) throws SQLException {
-        return this.shipping_Repository.getShippingAddress(userId);
+    public ArrayList<ShippingInfo> getShippingAddress(String username) throws SQLException {
+        return this.shipping_Repository.getShippingAddress(username);
     }
 
     public boolean updateShippingAddress(ShippingInfo shippingInfo) throws SQLException {

@@ -33,7 +33,7 @@
                                 <li class="nav-item">
                                     <button type="button"
                                             class="nav-link active btn btn-link text-decoration-none navbar-button"
-                                            href="#">
+                                            href="${pageContext.request.contextPath}">
                                         Trang chủ
                                     </button>
                                 </li>

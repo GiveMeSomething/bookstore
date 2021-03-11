@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package shippingInfo;
 
 import entities.ShippingInfo;
@@ -11,14 +6,13 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-/**
- *
- * @author Admin
- */
+@WebServlet(name = "ShippingInfo_Controller", urlPatterns = "/shippingInfo")
 public class ShippingInfo_Controller extends HttpServlet {
 
     private ShippingInfo_Service shippingInfo_Service;
@@ -31,32 +25,28 @@ public class ShippingInfo_Controller extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        this.getShippingInfo(request, response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // process 4 work type (add, fetch, update, delete)
-
-        String work = (String) request.getAttribute("work");
-        switch (work) {
-            case "add":
-                this.addShippingInfo(request, response);
-                break;
-            case "fetch":
-                this.getShippingInfo(request, response);
-                break;
-            case "udapte":
-                this.updateShippingInfo(request, response);
-                break;
-            case "delete":
-                this.deleteShippingInfo(request, response);
-                break;
-            default:
-                response.sendRedirect(request.getContextPath());
-                break;
-        }
+        System.out.println("request run in POST");
+//        String work = (String) request.getAttribute("work");
+//        switch (work) {
+//            case "add":
+//                this.addShippingInfo(request, response);
+//                break;
+//            case "udapte":
+//                this.updateShippingInfo(request, response);
+//                break;
+//            case "delete":
+//                this.deleteShippingInfo(request, response);
+//                break;
+//            default:
+//                response.sendRedirect(request.getContextPath());
+//                break;
+//        }
     }
 
     private void addShippingInfo(HttpServletRequest request, HttpServletResponse response) {
@@ -87,14 +77,14 @@ public class ShippingInfo_Controller extends HttpServlet {
 
     private void getShippingInfo(HttpServletRequest request, HttpServletResponse response) {
         try {
-            String username = request.getParameter("username");
-            ArrayList<ShippingInfo> addressList = this.shippingInfo_Service.getShippingAddress(username);
+            User currentUser = this.getCurrentUser(request, response);
+            ArrayList<ShippingInfo> addressList = this.shippingInfo_Service.getShippingAddress(currentUser.getUsername());
 
-            request.setAttribute("addressList", addressList);
-            request.getRequestDispatcher(request.getContextPath() + "/user").forward(request, response);
+            request.getSession().setAttribute("addressList", addressList);
+            response.sendRedirect(request.getContextPath() + "/user/shipping.jsp");
 
-        } catch (ServletException | IOException | SQLException e) {
-            System.out.println(e.getCause());
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -136,5 +126,20 @@ public class ShippingInfo_Controller extends HttpServlet {
         } catch (IOException | SQLException e) {
             System.out.println(e.getCause());
         }
+    }
+
+    private User getCurrentUser(HttpServletRequest request, HttpServletResponse response) {
+        HttpSession session = request.getSession();
+        User currentUser = (User) session.getAttribute("user");
+
+        try {
+            if (currentUser == null) {
+                response.sendRedirect(request.getContextPath() + "/auth/login");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return currentUser;
     }
 }

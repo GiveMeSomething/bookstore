@@ -1,0 +1,16 @@
+.user-menu-item {
+    font-size: 1rem;
+}
+
+.link-like-btn {
+    /*blue-400 tailwind*/
+    color: #60A5FA;
+    cursor: pointer;
+}
+
+.link-like-btn:hover {
+    /*blue-800 tailwind*/
+    color: #1E40AF;
+    text-decoration: underline;
+}
+

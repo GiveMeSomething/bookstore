@@ -58,32 +58,25 @@ public class ShippingInfo_Repository {
         initConnection();
 
         ArrayList<ShippingInfo> addressList = new ArrayList<>();
-        String sql = "SELECT DiaChi, Phuong, Quan, ThanhPho, PhoneNum, ShippingInfoId \n"
-                + "FROM HE150277_HoangTienMinh_ShippingInfo\n"
-                + "WHERE UserId = ?;";
-
-        int id;
-        String address;
-        String subDistrict;
-        String district;
-        String city;
-        String phoneNum;
+        String sql = "SELECT si.DiaChi, si.Phuong, si.Quan, si.ThanhPho, si.PhoneNum, si.ShippingInfoId\n"
+                + "FROM HE150277_HoangTienMinh_ShippingInfo si INNER JOIN HE150277_HoangTienMinh_Users u\n"
+                + "ON si.UserId = u.UserId\n"
+                + "WHERE u.Username = ?";
 
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setString(1, userId);
+            statement.setString(1, username);
             ResultSet result = statement.executeQuery();
 
             while (result.next()) {
-                id = result.getInt("ShippingInfoId");
-                city = result.getString("ThanhPho");
-                district = result.getString("Quan");
-                subDistrict = result.getString("Phuong");
-                address = result.getString("DiaChi");
-                phoneNum = result.getString("PhoneNum");
-
-                addressList.add(new ShippingInfo(id, city, district, subDistrict, address, phoneNum));
+                addressList.add(new ShippingInfo(
+                        result.getInt("ShippingInfoId"),
+                        result.getString("ThanhPho"),
+                        result.getString("Quan"),
+                        result.getString("Phuong"),
+                        result.getString("DiaChi"),
+                        result.getString("PhoneNum")
+                ));
             }
-
             return addressList;
         }
     }

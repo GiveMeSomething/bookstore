@@ -9,12 +9,14 @@ import entities.User;
 import java.io.IOException;
 import java.sql.SQLException;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 // specified for receiving and forwarding request and response
+@WebServlet(name = "Auth_Controller", urlPatterns = "/auth")
 public class Auth_Controller extends HttpServlet {
 
     private Auth_Service auth_Service;

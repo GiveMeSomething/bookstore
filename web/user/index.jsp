@@ -11,26 +11,18 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
         <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
         <link href="${pageContext.request.contextPath}/style/main-page-style.css" rel="stylesheet">
+        <link href="${pageContext.request.contextPath}/style/user-menu-item.css" rel="stylesheet">
     </head>
     <body>
         <%
-
             boolean hasLogin = (session.getAttribute("user") != null);
             if (!hasLogin) {
                 response.sendRedirect(request.getContextPath() + "/auth/login");
             }
-
-            ArrayList<ShippingInfo> addressList = (ArrayList<ShippingInfo>) request.getAttribute("addressList");
-            if (addressList == null) {
-                request.setAttribute("work", "fetch");
-                request.getRequestDispatcher(request.getContextPath() + "/shipping-info").forward(request, response);
-            }
-
         %>
         <c:set var="email" value='${sessionScope.user.email}' />
         <c:set var="phoneNum" value="${sessionScope.user.phoneNum}" />
         <c:set var="username" value="${sessionScope.user.username}" />
-        <c:set var="addressList" value="${requestScope.addressList}" />
         <section id="navbar">
             <div class="container">
                 <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -117,7 +109,7 @@
                 </nav>
             </div>
         </section>
-        <div class="container my-5">
+        <div class="container my-5" data-aos="fade-up" data-aos-duration="1000">
             <div class="row">
                 <div class="col-4">
                     <div class="d-flex flex-column justify-content-center align-items-center">
@@ -195,25 +187,14 @@
                         </c:otherwise>
                     </c:choose>
                     <div class="row mt-5">
-                        <h3>Sổ địa chỉ:</h3>
-                        <table class="table table-striped">
-                            <thead>
-                                <tr>
-                                    <th scope="col">STT</th>
-                                    <th scope="col">Địa chỉ</th>
-                                    <th scope="col">SĐT</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <c:forEach var="address" items='${addressList}'>
-                                    <tr>
-                                        <th scope="row">${address}.shippingInfoId</th>
-                                        <td>${address}.getFullAddress()</td>
-                                        <td>address.phoneNum</td>
-                                    </tr>
-                                </c:forEach>
-                            </tbody>
-                        </table>
+                        <div class="col-12">
+                            <a href="${pageContext.request.contextPath}/shippingInfo" class="user-menu-item py-2"><h4 class="d-inline-block">Sổ địa chỉ</h4></a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <a href="${pageContext.request.contextPath}/user/orders.jsp" class="user-menu-item py-2"><h4 class="d-inline-block">Đơn hàng của tôi</h4></a>
+                        </div>
                     </div>
                 </div>
             </div>
