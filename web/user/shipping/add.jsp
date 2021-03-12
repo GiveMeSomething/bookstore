@@ -21,15 +21,117 @@
             if (!hasLogin) {
                 response.sendRedirect(request.getContextPath() + "/auth/login");
             }
+            request.setCharacterEncoding("UTF-8");
         %>
         <c:set var="cityList" value="${sessionScope.cityList}" />
         <c:set var="districtList" value="${sessionScope.districtList}" />
         <c:set var="subDistrictList" value="${sessionScope.subDistrictList}" />
+        <section id="navbar">
+            <div class="container">
+                <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                    <img src="${pageContext.request.contextPath}/assets/logo.jpg" role="presentation" style="height: 4rem; width: auto;"/>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse d-flex justify-content-md-end" id="navbarSupportedContent">
+                        <ul class="navbar-nav">
+                            <div class="d-flex d-grid gap-4 align-items-center">
+                                <li class="nav-item">
+                                    <button type="button"
+                                            class="nav-link active btn btn-link text-decoration-none navbar-button"
+                                            href="${pageContext.request.contextPath}">
+                                        Trang chủ
+                                    </button>
+                                </li>
+                                <li class="nav-item">
+                                    <button type="button"
+                                            class="nav-link active btn btn-link text-decoration-none navbar-button"
+                                            href="store">
+                                        Cửa hàng
+                                    </button>
+                                </li>
+                                <li class="nav-item">
+                                    <button type="button"
+                                            class="nav-link active btn btn-link text-decoration-none navbar-button"
+                                            href="forum">
+                                        Forum
+                                    </button>
+                                </li>
+                                <li class="nav-item">
+                                    <button
+                                        type="button"
+                                        class="nav-link active btn btn-link text-decoration-none navbar-button"
+                                        href="event">
+                                        Sự kiện
+                                    </button>
+                                </li>
+                                <c:choose>
+                                    <c:when test="<%=hasLogin%>">
+                                        <div class="dropdown">
+                                            <button class="nav-link active btn btn-link
+                                                    text-decoration-none navbar-button d-flex align-items-center"
+                                                    type="button" id="user-dropdown"
+                                                    data-bs-toggle="dropdown"
+                                                    aria-expanded="false">
+                                                <img src="${pageContext.request.contextPath}/assets/avatar.png"
+                                                     height="40px" width="40px"/>
+                                                ${sessionScope.user.username}
+                                            </button>
+                                            <ul class="dropdown-menu" aria-labelledby="user-dropdown">
+                                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/user">Trang cá nhân</a></li>
+                                                <li><a class="dropdown-item" href="#">Giỏ hàng</a></li>
+                                                <hr class="p-0 m-0 my-1"/>
+                                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/auth?signout=1">Đăng xuất</a></li>
+                                            </ul>
+                                        </div>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <li class="nav-item">
+                                            <a href="auth/register" class="navbar-link">
+                                                <button
+                                                    type="button"
+                                                    class="nav-link active btn btn-link text-decoration-none navbar-button">
+                                                    Đăng kí
+                                                </button>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="auth/login" class="navbar-link">
+                                                <button
+                                                    type="button"
+                                                    class="nav-link active btn btn-link text-decoration-none navbar-button">
+                                                    Đăng nhập
+                                                </button>
+                                            </a>
+                                        </li>
+                                    </c:otherwise>
+                                </c:choose>
+                            </div>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+        </section>
         <div class="container mt-5">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item">
+                        <a href="${pageContext.request.contextPath}">Trang chủ</a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a href="${pageContext.request.contextPath}/user">Thông tin người dùng</a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a href="${pageContext.request.contextPath}/user/shipping.jsp">Địa chỉ giao hàng</a>
+                    </li>
+                    <li class="breadcrumb-item active">Thêm địa chỉ</li>
+                </ol>
+            </nav>
             <h2>Thêm địa chỉ</h2>
             <form action="${pageContext.request.contextPath}/shippingInfo"
                   method="POST"
                   class="needs-validation mt-5"
+                  accept-charset="utf-16"
                   novalidate>
                 <div class="row" gaps="2">
                     <div class="col-4 px-2">

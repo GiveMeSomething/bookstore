@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-@WebServlet(name = "User_Controller", urlPatterns = "/user")
+@WebServlet(name = "User_Controller", urlPatterns = "/user_controller")
 public class User_Controller extends HttpServlet {
 
     private User_Service user_Service;

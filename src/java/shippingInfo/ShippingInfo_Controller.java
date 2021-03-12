@@ -6,6 +6,7 @@ import entities.address.City;
 import entities.address.District;
 import entities.address.SubDistrict;
 import java.io.IOException;
+import java.nio.charset.Charset;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
@@ -54,14 +55,14 @@ public class ShippingInfo_Controller extends HttpServlet {
     private void addShippingInfo(HttpServletRequest request, HttpServletResponse response) {
         try {
             User currentUser = (User) request.getSession().getAttribute("user");
-
+            System.out.println(checkAddressCombination(request));
             if (checkAddressCombination(request)) {
                 boolean isAdded = shippingInfo_Service.addShippingAddress(
                         new ShippingInfo(
                                 getCityFromIndex(request, Integer.parseInt(request.getParameter("city"))).getName(),
                                 getDistrictFromIndex(request, Integer.parseInt(request.getParameter("district"))).getName(),
                                 getSubDistrictFromIndex(request, Integer.parseInt(request.getParameter("subDistrict"))).getName(),
-                                request.getParameter("address"),
+                                new String(request.getParameter("address").getBytes(), Charset.forName("UTF-8")),
                                 request.getParameter("phoneNum")
                         ),
                         currentUser.getUsername()
@@ -76,10 +77,9 @@ public class ShippingInfo_Controller extends HttpServlet {
                 }
             } else {
                 request.setAttribute("message", "Địa chỉ không hợp lệ. Vui lòng kiểm tra lại");
-                request.getRequestDispatcher(request.getContextPath() + "/user/shipping/add.jsp");
+                request.getRequestDispatcher(request.getContextPath() + "/user/shipping/add.jsp").forward(request, response);
             }
-
-        } catch (IOException | SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -128,12 +128,12 @@ public class ShippingInfo_Controller extends HttpServlet {
 
             if (!isDeleted) {
                 request.setAttribute("message", this.shippingInfo_Service.getMessage());
-                request.getRequestDispatcher(request.getContextPath() + "/user");
+                request.getRequestDispatcher(request.getContextPath() + "/user/shipping.jsp");
             } else {
-                response.sendRedirect(request.getContextPath() + "/user");
+                this.getShippingInfo(request, response);
             }
-        } catch (IOException | SQLException e) {
-            System.out.println(e.getCause());
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 

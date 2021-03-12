@@ -110,6 +110,12 @@
             </div>
         </section>
         <div class="container my-5" data-aos="fade-up" data-aos-duration="700">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="${pageContext.request.contextPath}">Trang chủ</a></li>
+                    <li class="breadcrumb-item active">Thông tin người dùng</li>
+                </ol>
+            </nav>
             <div class="row">
                 <div class="col-4">
                     <div class="d-flex flex-column justify-content-center align-items-center">
@@ -120,7 +126,7 @@
                 <div class="col-8 justify-content-center mt-5">
                     <c:choose>
                         <c:when test="${param.editInfo}">
-                            <form action="${pageContext.request.contextPath}/update-user"
+                            <form action="${pageContext.request.contextPath}/user_controller"
                                   method="POST"
                                   class="needs-validation"
                                   novalidate>

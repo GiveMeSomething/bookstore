@@ -36,7 +36,7 @@ public class ShippingInfo_Repository {
         initConnection();
 
         String sql = "INSERT INTO HE150277_HoangTienMinh_ShippingInfo (UserId, ThanhPho, Quan, Phuong, DiaChi, PhoneNum)\n"
-                + "VALUES ((SELECT UserId FROM HE150277_HoangTienMinh_Users WHERE Username = ?), ?, ?, ?, N?, ?)\n";
+                + "VALUES ((SELECT UserId FROM HE150277_HoangTienMinh_Users WHERE Username = ?), ?, ?, ?, ?, ?)\n";
 
         boolean isInserted;
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
