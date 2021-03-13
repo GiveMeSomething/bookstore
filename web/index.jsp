@@ -40,14 +40,14 @@
                                 <li class="nav-item">
                                     <button type="button"
                                             class="nav-link active btn btn-link text-decoration-none navbar-button"
-                                            href="store">
+                                            href="${pageContext.request.contextPath}/store">
                                         Cửa hàng
                                     </button>
                                 </li>
                                 <li class="nav-item">
                                     <button type="button"
                                             class="nav-link active btn btn-link text-decoration-none navbar-button"
-                                            href="forum">
+                                            href="${pageContext.request.contextPath}/forum">
                                         Forum
                                     </button>
                                 </li>
@@ -55,7 +55,7 @@
                                     <button
                                         type="button"
                                         class="nav-link active btn btn-link text-decoration-none navbar-button"
-                                        href="event">
+                                        href="${pageContext.request.contextPath}/event">
                                         Sự kiện
                                     </button>
                                 </li>

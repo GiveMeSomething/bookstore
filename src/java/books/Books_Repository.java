@@ -14,6 +14,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Map;
 
 // Specified to handling db action
 public class Books_Repository {
@@ -45,6 +46,9 @@ public class Books_Repository {
 
     public Books_Repository() {
         initConnection();
+
+        bookMap = new HashMap<>();
+        bookMap.put(0, new ArrayList<>());
     }
 
     // need some criteria as paramter to filter the Book Map and return a result list
@@ -52,14 +56,14 @@ public class Books_Repository {
     public HashMap<Integer, ArrayList<Book>> getAllBooks(String keyword) throws SQLException {
         initConnection();
 
-        bookMap = new HashMap<>();
         String sql;
         boolean haveKeyword = !((keyword == null) || (keyword.trim().equals("")));
         if (haveKeyword) {
-            sql = "SELECT BookId, BookName, Brand, UnitPrice, UnitsInStock, Suppliers FROM HE150277_HoangTienMinh_Books";
-        } else {
-            sql = "SELECT BookId, BookName, Brand, UnitPrice, UnitsInStock, Suppliers FROM HE150277_HoangTienMinh_Books"
+            sql = "SELECT BookId, BookName, Brand, UnitPrice, UnitsInStock, Suppliers, CategoryId FROM HE150277_HoangTienMinh_Books"
                     + "WHERE BookName LIKE ? OR Brand LIKE ? OR Suppliers LIKE ?";
+        } else {
+            sql = "SELECT BookId, BookName, Brand, UnitPrice, UnitsInStock, Suppliers, CategoryId FROM HE150277_HoangTienMinh_Books";
+
         }
 
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -80,14 +84,19 @@ public class Books_Repository {
                         result.getString("BookName"),
                         result.getString("Brand"),
                         result.getDouble("UnitPrice"),
-                        result.getInt("UnitInStock"),
-                        result.getString("Supplier")
+                        result.getInt("UnitsInStock"),
+                        result.getString("Suppliers")
                 );
                 bookMap.get(categoryId).add(book);
 
                 // key 0 return a list that contain all books (ignore tag)
                 bookMap.get(0).add(book);
             }
+        }
+
+        for (Map.Entry<Integer, ArrayList<Book>> entry : bookMap.entrySet()) {
+            Integer key = entry.getKey();
+            System.out.println(key);
         }
         return bookMap;
     }

@@ -36,21 +36,21 @@
                                 <li class="nav-item">
                                     <button type="button"
                                             class="nav-link active btn btn-link text-decoration-none navbar-button"
-                                            href="#">
+                                            href="${pageContext.request.contextPath}">
                                         Trang chủ
                                     </button>
                                 </li>
                                 <li class="nav-item">
                                     <button type="button"
                                             class="nav-link active btn btn-link text-decoration-none navbar-button"
-                                            href="store">
+                                            href="${pageContext.request.contextPath}/store">
                                         Cửa hàng
                                     </button>
                                 </li>
                                 <li class="nav-item">
                                     <button type="button"
                                             class="nav-link active btn btn-link text-decoration-none navbar-button"
-                                            href="forum">
+                                            href="${pageContext.request.contextPath}/forum">
                                         Forum
                                     </button>
                                 </li>
@@ -58,12 +58,12 @@
                                     <button
                                         type="button"
                                         class="nav-link active btn btn-link text-decoration-none navbar-button"
-                                        href="event">
+                                        href="${pageContext.request.contextPath}/event">
                                         Sự kiện
                                     </button>
                                 </li>
                                 <c:choose>
-                                    <c:when test='<%=hasLogin%>'>
+                                    <c:when test="<%=hasLogin%>">
                                         <div class="dropdown">
                                             <button class="nav-link active btn btn-link
                                                     text-decoration-none navbar-button d-flex align-items-center"
@@ -84,7 +84,7 @@
                                     </c:when>
                                     <c:otherwise>
                                         <li class="nav-item">
-                                            <a href="${pageContext.request.contextPath}/auth/register" class="navbar-link">
+                                            <a href="auth/register" class="navbar-link">
                                                 <button
                                                     type="button"
                                                     class="nav-link active btn btn-link text-decoration-none navbar-button">
@@ -93,7 +93,7 @@
                                             </a>
                                         </li>
                                         <li class="nav-item">
-                                            <a href="${pageContext.request.contextPath}/auth/login" class="navbar-link">
+                                            <a href="auth/login" class="navbar-link">
                                                 <button
                                                     type="button"
                                                     class="nav-link active btn btn-link text-decoration-none navbar-button">

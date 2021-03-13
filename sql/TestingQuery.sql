@@ -11,3 +11,4 @@ VALUES (
 SELECT CategoryId, CategoryName, [Description] FROM HE150277_HoangTienMinh_Categories;
 
 SELECT BookId, BookName, Brand, UnitPrice, UnitsInStock, Suppliers FROM HE150277_HoangTienMinh_Books
+WHERE BookName LIKE '%The%' OR Brand LIKE '%The%' OR Suppliers LIKE '%The%';

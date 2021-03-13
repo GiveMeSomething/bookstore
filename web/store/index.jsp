@@ -4,6 +4,9 @@
     Author     : Admin
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@page import="entities.Book"%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="entities.User"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -18,6 +21,10 @@
     </head>
     <body>
         <%
+            if (session.getAttribute("bookList") == null || session.getAttribute("cart") == null) {
+                response.sendRedirect(request.getContextPath() + "/books");
+            }
+
             User currentUser = (User) session.getAttribute("user");
             String username;
             boolean hasLogin = (currentUser != null);
@@ -25,11 +32,100 @@
                 username = currentUser.getUsername();
             }
         %>
+        <c:set var="bookList" value="${sessionScope.bookList}"/>
+        <c:set var="categoryList" value="${sessionScope.categoryList}"/>
+        <section id="navbar">
+            <div class="container">
+                <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                    <img src="${pageContext.request.contextPath}/assets/logo.jpg" role="presentation" style="height: 4rem; width: auto;"/>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse d-flex justify-content-md-end" id="navbarSupportedContent">
+                        <ul class="navbar-nav">
+                            <div class="d-flex d-grid gap-4 align-items-center">
+                                <li class="nav-item">
+                                    <button type="button"
+                                            class="nav-link active btn btn-link text-decoration-none navbar-button"
+                                            href="${pageContext.request.contextPath}">
+                                        Trang chủ
+                                    </button>
+                                </li>
+                                <li class="nav-item">
+                                    <button type="button"
+                                            class="nav-link active btn btn-link text-decoration-none navbar-button"
+                                            href="${pageContext.request.contextPath}/store">
+                                        Cửa hàng
+                                    </button>
+                                </li>
+                                <li class="nav-item">
+                                    <button type="button"
+                                            class="nav-link active btn btn-link text-decoration-none navbar-button"
+                                            href="${pageContext.request.contextPath}/forum">
+                                        Forum
+                                    </button>
+                                </li>
+                                <li class="nav-item">
+                                    <button
+                                        type="button"
+                                        class="nav-link active btn btn-link text-decoration-none navbar-button"
+                                        href="${pageContext.request.contextPath}/event">
+                                        Sự kiện
+                                    </button>
+                                </li>
+                                <c:choose>
+                                    <c:when test="<%=hasLogin%>">
+                                        <div class="dropdown">
+                                            <button class="nav-link active btn btn-link
+                                                    text-decoration-none navbar-button d-flex align-items-center"
+                                                    type="button" id="user-dropdown"
+                                                    data-bs-toggle="dropdown"
+                                                    aria-expanded="false">
+                                                <img src="${pageContext.request.contextPath}/assets/avatar.png"
+                                                     height="40px" width="40px"/>
+                                                ${sessionScope.user.username}
+                                            </button>
+                                            <ul class="dropdown-menu" aria-labelledby="user-dropdown">
+                                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/user">Trang cá nhân</a></li>
+                                                <li><a class="dropdown-item" href="#">Giỏ hàng</a></li>
+                                                <hr class="p-0 m-0 my-1"/>
+                                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/auth?signout=1">Đăng xuất</a></li>
+                                            </ul>
+                                        </div>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <li class="nav-item">
+                                            <a href="auth/register" class="navbar-link">
+                                                <button
+                                                    type="button"
+                                                    class="nav-link active btn btn-link text-decoration-none navbar-button">
+                                                    Đăng kí
+                                                </button>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="auth/login" class="navbar-link">
+                                                <button
+                                                    type="button"
+                                                    class="nav-link active btn btn-link text-decoration-none navbar-button">
+                                                    Đăng nhập
+                                                </button>
+                                            </a>
+                                        </li>
+                                    </c:otherwise>
+                                </c:choose>
+                            </div>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+        </section>
         <section id="bookstore">
             <div class="container-fluid">
-                <div class="row py-5">
+                <h2 class="text-center mt-5">Cửa hàng sách</h2>
+                <div class="row py-5 g-0">
                     <div class="col-8 mx-auto">
-                        <form action=""  method="POST" class="">
+                        <form action="${pageContext.request.contextPath}/books"  method="POST">
                             <div class="input-group">
                                 <input type="text" class="form-control" name="keyword" placeholder="Nhập từ khóa cần tìm kiếm" />
                                 <span class="input-group-btn">
@@ -39,23 +135,22 @@
                         </form>
                     </div>
                 </div>
-                <div class="row">
+                <div class="row g-0">
                     <div class="col-3">
                         <div class="px-5">
                             <div>
                                 <h3>Thể loại</h3>
-                                <div class="form-check my-3 type-checkbox">
-                                    <input class="form-check-input" type="checkbox" value="" id="1">
-                                    <label class="form-check-label" for="1">
-                                        Thể loại
-                                    </label>
-                                </div>
-                                <div class="form-check my-3 type-checkbox">
-                                    <input class="form-check-input" type="checkbox" value="" id="2">
-                                    <label class="form-check-label" for="2">
-                                        Thể loại
-                                    </label>
-                                </div>
+                                <c:forEach var="category" items="${categoryList}">
+                                    <div class="form-check my-3 type-checkbox">
+                                        <input class="form-check-input"
+                                               type="checkbox"
+                                               value="${category.categoryId}"
+                                               id="${category.categoryId}">
+                                        <label class="form-check-label" for="1">
+                                            ${category.categoryName}
+                                        </label>
+                                    </div>
+                                </c:forEach>
                             </div>
                             <div>
                                 <h3>Sắp xếp theo</h3>
@@ -79,120 +174,22 @@
                     </div>
                     <div class="col-9">
                         <div class="row g-0">
-                            <div class="d-flex align-items-center col-3">
-                                <div class="card" style="width: 18rem; border: 0;">
-                                    <img src="${pageContext.request.contextPath}/assets/sample-book/product-1.jpg" class="card-img-top image-with-cover">
-                                    <div class="image-with-cover-hover-content d-flex align-items-center justify-content-center">
-                                        <a href="store/bookId">
-                                            <button type="primary" class="btn btn-primary py-2 px-4">Mua ngay</button>
-                                        </a>
-                                    </div>
-                                    <div class="card-body text-center">
-                                        <h5 class="card-title">The Winter</h5>
-                                        <p><em>$14.5</em></p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="d-flex align-items-center col-3">
-                                <div class="card" style="width: 18rem; border: 0">
-                                    <img src="${pageContext.request.contextPath}/assets/sample-book/product-2.jpg" class="card-img-top image-with-cover">
-                                    <div class="image-with-cover-hover-content d-flex align-items-center justify-content-center">
-                                        <a href="store/bookId">
-                                            <button type="primary" class="btn btn-primary py-2 px-4">Mua ngay</button>
-                                        </a>
-                                    </div>
-                                    <div class="card-body text-center">
-                                        <h5 class="card-title">Cats Language</h5>
-                                        <p><em>$14.5</em></p>
+                            <c:forEach var="book" items="${bookList}">
+                                <div class="d-flex align-items-center col-3">
+                                    <div class="card" style="width: 18rem; border: 0;">
+                                        <img src="${pageContext.request.contextPath}/assets/sample-book/product-1.jpg" class="card-img-top image-with-cover">
+                                        <div class="image-with-cover-hover-content d-flex align-items-center justify-content-center">
+                                            <a href="store/bookId">
+                                                <button type="primary" class="btn btn-primary py-2 px-4">Mua ngay</button>
+                                            </a>
+                                        </div>
+                                        <div class="card-body text-center">
+                                            <h5 class="card-title">${book.bookName}</h5>
+                                            <p><em>$${book.unitPrice}</em></p>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="d-flex align-items-center col-3">
-                                <div class="card" style="width: 18rem; border: 0">
-                                    <img src="${pageContext.request.contextPath}/assets/sample-book/product-3.jpg" class="card-img-top image-with-cover">
-                                    <div class="image-with-cover-hover-content d-flex align-items-center justify-content-center">
-                                        <a href="store/bookId">
-                                            <button type="primary" class="btn btn-primary py-2 px-4">Mua ngay</button>
-                                        </a>
-                                    </div>
-                                    <div class="card-body text-center">
-                                        <h5 class="card-title">Clean is Design</h5>
-                                        <p><em>$14.5</em></p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="d-flex align-items-center col-3">
-                                <div class="card" style="width: 18rem; border: 0">
-                                    <img src="${pageContext.request.contextPath}/assets/sample-book/product-4.jpg" class="card-img-top image-with-cover">
-                                    <div class="image-with-cover-hover-content d-flex align-items-center justify-content-center">
-                                        <a href="store/bookId">
-                                            <button type="primary" class="btn btn-primary py-2 px-4">Mua ngay</button>
-                                        </a>
-                                    </div>
-                                    <div class="card-body text-center">
-                                        <h5 class="card-title">UX Research</h5>
-                                        <p><em>$14.5</em></p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row g-0">
-                            <div class="d-flex align-items-center justify-content-center col-3">
-                                <div class="card" style="width: 18rem; border: 0">
-                                    <img src="${pageContext.request.contextPath}/assets/sample-book/product-5.jpg" class="card-img-top image-with-cover">
-                                    <div class="image-with-cover-hover-content d-flex align-items-center justify-content-center">
-                                        <a href="store/bookId">
-                                            <button type="primary" class="btn btn-primary py-2 px-4">Mua ngay</button>
-                                        </a>
-                                    </div>
-                                    <div class="card-body text-center">
-                                        <h5 class="card-title">Enlight Yourself</h5>
-                                        <p><em>$14.5</em></p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="d-flex align-items-center justify-content-center col-3">
-                                <div class="card" style="width: 18rem; border: 0">
-                                    <img src="${pageContext.request.contextPath}/assets/sample-book/product-6.jpg" class="card-img-top image-with-cover">
-                                    <div class="image-with-cover-hover-content d-flex align-items-center justify-content-center">
-                                        <a href="store/bookId">
-                                            <button type="primary" class="btn btn-primary py-2 px-4">Mua ngay</button>
-                                        </a>
-                                    </div>
-                                    <div class="card-body text-center">
-                                        <h5 class="card-title">Freelancer FAQ</h5>
-                                        <p><em>$14.5</em></p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="d-flex align-items-center justify-content-center col-3">
-                                <div class="card" style="width: 18rem; border: 0">
-                                    <img src="${pageContext.request.contextPath}/assets/sample-book/product-7.jpg" class="card-img-top image-with-cover">
-                                    <div class="image-with-cover-hover-content d-flex align-items-center justify-content-center">
-                                        <a href="store/bookId">
-                                            <button type="primary" class="btn btn-primary py-2 px-4">Mua ngay</button>
-                                        </a>
-                                    </div>
-                                    <div class="card-body text-center">
-                                        <h5 class="card-title">Time Travel</h5>
-                                        <p><em>$14.5</em></p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="d-flex align-items-center justify-content-center col-3">
-                                <div class="card" style="width: 18rem; border: 0">
-                                    <img src="${pageContext.request.contextPath}/assets/sample-book/product-8.jpg" class="card-img-top image-with-cover">
-                                    <div class="image-with-cover-hover-content d-flex align-items-center justify-content-center">
-                                        <a href="store/bookId">
-                                            <button type="primary" class="btn btn-primary py-2 px-4">Mua ngay</button>
-                                        </a>
-                                    </div>
-                                    <div class="card-body text-center">
-                                        <h5 class="card-title">Bangladesh Power</h5>
-                                        <p><em>$14.5</em></p>
-                                    </div>
-                                </div>
-                            </div>
+                            </c:forEach>
                         </div>
                     </div>
                 </div>
