@@ -332,7 +332,7 @@
                     </div>
                 </div>
                 <div class="d-flex align-items-center justify-content-center">
-                    <a href="bookstore">
+                    <a href="store">
                         <button type="primary" class="btn btn-primary py-2 px-4">Xem thêm</button>
                     </a>
                 </div>

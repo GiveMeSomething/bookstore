@@ -79,7 +79,7 @@
                     </div>
                     <div class="col-9">
                         <div class="row g-0">
-                            <div class="d-flex align-items-center justify-content-center col-3">
+                            <div class="d-flex align-items-center col-3">
                                 <div class="card" style="width: 18rem; border: 0;">
                                     <img src="${pageContext.request.contextPath}/assets/sample-book/product-1.jpg" class="card-img-top image-with-cover">
                                     <div class="image-with-cover-hover-content d-flex align-items-center justify-content-center">
@@ -93,7 +93,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="d-flex align-items-center justify-content-center col-3">
+                            <div class="d-flex align-items-center col-3">
                                 <div class="card" style="width: 18rem; border: 0">
                                     <img src="${pageContext.request.contextPath}/assets/sample-book/product-2.jpg" class="card-img-top image-with-cover">
                                     <div class="image-with-cover-hover-content d-flex align-items-center justify-content-center">
@@ -107,7 +107,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="d-flex align-items-center justify-content-center col-3">
+                            <div class="d-flex align-items-center col-3">
                                 <div class="card" style="width: 18rem; border: 0">
                                     <img src="${pageContext.request.contextPath}/assets/sample-book/product-3.jpg" class="card-img-top image-with-cover">
                                     <div class="image-with-cover-hover-content d-flex align-items-center justify-content-center">
@@ -121,7 +121,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="d-flex align-items-center justify-content-center col-3">
+                            <div class="d-flex align-items-center col-3">
                                 <div class="card" style="width: 18rem; border: 0">
                                     <img src="${pageContext.request.contextPath}/assets/sample-book/product-4.jpg" class="card-img-top image-with-cover">
                                     <div class="image-with-cover-hover-content d-flex align-items-center justify-content-center">
