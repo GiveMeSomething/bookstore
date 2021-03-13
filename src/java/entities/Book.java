@@ -16,18 +16,18 @@ public class Book {
     private String brand;
     private double unitPrice;
     private int unitInStock;
-    private int supplier;
+    private String supplier;
 
     public Book() {
     }
 
-    public Book(String bookName, String brand, double unitPrice, int unitInStock, int supplier, int bookId) {
+    public Book(int bookId, String bookName, String brand, double unitPrice, int unitInStock, String supplier) {
+        this.bookId = bookId;
         this.bookName = bookName;
         this.brand = brand;
         this.unitPrice = unitPrice;
         this.unitInStock = unitInStock;
         this.supplier = supplier;
-        this.bookId = bookId;
     }
 
     public int getBookId() {
@@ -50,7 +50,8 @@ public class Book {
         return unitInStock;
     }
 
-    public int getSupplier() {
+    public String getSupplier() {
         return supplier;
     }
+
 }

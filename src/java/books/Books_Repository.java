@@ -21,7 +21,7 @@ public class Books_Repository {
     private Connection connection;
 
     // Map<CategoryId, ArrayList<Book>>
-    private HashMap<Integer, Book> books;
+    private HashMap<Integer, ArrayList<Book>> bookMap;
 
     private void initConnection() {
         try {
@@ -49,42 +49,46 @@ public class Books_Repository {
 
     // need some criteria as paramter to filter the Book Map and return a result list
     // actually getBooks and getCategory to form a data structure
-    public ArrayList<Book> getBooks() {
-        String sqlBook
-        return null;
-    }
+    public HashMap<Integer, ArrayList<Book>> getAllBooks(String keyword) throws SQLException {
+        initConnection();
 
-//    public void getAllBooks() {
-//        books = new HashMap<>();
-//        String sql = "select * from HE150277_HoangTienMinh_Books";
-//        try {
-//            PreparedStatement ps = connection.prepareStatement(sql);
-//            ResultSet result = ps.executeQuery();
-//            while (result.next()) {
-//                String id = result.getString("BookId");
-//                String bookName = result.getString("BookName");
-//                String brand = result.getString("Brand");
-//
-//                double unitPrice;
-//                int unitInStock;
-//                int supplier;
-//
-//                try {
-//                    unitPrice = Double.parseDouble(result.getString("UnitPrice"));
-//                    unitInStock = Integer.parseInt(result.getString("UnitInStock"));
-//                    supplier = Integer.parseInt(result.getString("Supllier"));
-//                } catch (NumberFormatException e) {
-//                    // set default value if can't parse
-//                    unitPrice = 0.0;
-//                    unitInStock = 0;
-//                    supplier = 0;
-//
-//                    System.err.println(e.getMessage());
-//                }
-//                books.put(id, new Book(bookName, brand, unitPrice, unitInStock, supplier));
-//            }
-//        } catch (SQLException e) {
-//            this.status = "Error " + e.getMessage();
-//        }
-//    }
+        bookMap = new HashMap<>();
+        String sql;
+        boolean haveKeyword = !((keyword == null) || (keyword.trim().equals("")));
+        if (haveKeyword) {
+            sql = "SELECT BookId, BookName, Brand, UnitPrice, UnitsInStock, Suppliers FROM HE150277_HoangTienMinh_Books";
+        } else {
+            sql = "SELECT BookId, BookName, Brand, UnitPrice, UnitsInStock, Suppliers FROM HE150277_HoangTienMinh_Books"
+                    + "WHERE BookName LIKE ? OR Brand LIKE ? OR Suppliers LIKE ?";
+        }
+
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            if (haveKeyword) {
+                statement.setString(1, "%" + keyword + "%");
+                statement.setString(2, "%" + keyword + "%");
+                statement.setString(3, "%" + keyword + "%");
+            }
+            ResultSet result = statement.executeQuery();
+            while (result.next()) {
+                int categoryId = result.getInt("CategoryId");
+                if (!bookMap.containsKey(categoryId)) {
+                    bookMap.put(categoryId, new ArrayList<>());
+                }
+
+                Book book = new Book(
+                        result.getInt("BookId"),
+                        result.getString("BookName"),
+                        result.getString("Brand"),
+                        result.getDouble("UnitPrice"),
+                        result.getInt("UnitInStock"),
+                        result.getString("Supplier")
+                );
+                bookMap.get(categoryId).add(book);
+
+                // key 0 return a list that contain all books (ignore tag)
+                bookMap.get(0).add(book);
+            }
+        }
+        return bookMap;
+    }
 }
