@@ -33,7 +33,7 @@ create table HE150277_HoangTienMinh_Books (
 	Brand nvarchar(24),
 	UnitPrice float,
 	UnitsInStock int,
-	Suppliers int,
+	Suppliers nvarchar(50),
 )
 
 create table HE150277_HoangTienMinh_Posts (	
@@ -43,6 +43,13 @@ create table HE150277_HoangTienMinh_Posts (
 	Title nvarchar(50),
 	Upvote int,
 	PostContent ntext,
+)
+
+create table HE150277_HoangTienMinh_Comments (
+	CommentId int identity(1, 1) PRIMARY KEY,
+	UserId int FOREIGN KEY REFERENCES HE150277_HoangTienMinh_Users(UserId),
+	BookId int FOREIGN KEY REFERENCES HE150277_HoangTienMinh_Books(BookId), 
+	CommentContent ntext
 )
 
 create table HE150277_HoangTienMinh_Orders (

@@ -11,15 +11,28 @@ package entities;
  */
 public class Category {
 
+    private int categoryId;
     private String categoryName;
     private String desc;
-
-    public Category(String categoryName, String desc) {
-        this.categoryName = categoryName;
-        this.desc = desc;
-    }
 
     public Category() {
     }
 
+    public Category(int categoryId, String categoryName, String desc) {
+        this.categoryId = categoryId;
+        this.categoryName = categoryName;
+        this.desc = desc;
+    }
+
+    public int getCategoryId() {
+        return categoryId;
+    }
+
+    public String getCategoryName() {
+        return categoryName;
+    }
+
+    public String getDesc() {
+        return desc;
+    }
 }

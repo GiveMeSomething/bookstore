@@ -20,7 +20,8 @@ public class Books_Repository {
 
     private Connection connection;
 
-    private HashMap<String, Book> books;
+    // Map<CategoryId, ArrayList<Book>>
+    private HashMap<Integer, Book> books;
 
     private void initConnection() {
         try {
@@ -46,21 +47,10 @@ public class Books_Repository {
         initConnection();
     }
 
-    public boolean addBook(Book book) throws SQLException {
-        initConnection();
-        return false;
-    }
-
-    public boolean updateBook(Book book) throws SQLException {
-        initConnection();
-    }
-
-    public boolean deleteBook(int bookId) throws SQLException {
-        initConnection();
-    }
-
     // need some criteria as paramter to filter the Book Map and return a result list
+    // actually getBooks and getCategory to form a data structure
     public ArrayList<Book> getBooks() {
+        String sqlBook
         return null;
     }
 
