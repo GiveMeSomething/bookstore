@@ -218,7 +218,7 @@
                 <div class="row g-0">
                     <div class="d-flex align-items-center justify-content-center col-3">
                         <div class="card" style="width: 18rem; border: 0;">
-                            <img src="assets/sample-book/product-1.jpg" class="card-img-top image-with-cover">
+                            <img src="${pageContext.request.contextPath}/assets/sample-book/product-1.jpg" class="card-img-top image-with-cover">
                             <div class="image-with-cover-hover-content d-flex align-items-center justify-content-center">
                                 <a href="store/bookId">
                                     <button type="primary" class="btn btn-primary py-2 px-4">Mua ngay</button>
@@ -232,7 +232,7 @@
                     </div>
                     <div class="d-flex align-items-center justify-content-center col-3">
                         <div class="card" style="width: 18rem; border: 0">
-                            <img src="assets/sample-book/product-2.jpg" class="card-img-top image-with-cover">
+                            <img src="${pageContext.request.contextPath}/assets/sample-book/product-2.jpg" class="card-img-top image-with-cover">
                             <div class="image-with-cover-hover-content d-flex align-items-center justify-content-center">
                                 <a href="store/bookId">
                                     <button type="primary" class="btn btn-primary py-2 px-4">Mua ngay</button>
@@ -246,7 +246,7 @@
                     </div>
                     <div class="d-flex align-items-center justify-content-center col-3">
                         <div class="card" style="width: 18rem; border: 0">
-                            <img src="assets/sample-book/product-3.jpg" class="card-img-top image-with-cover">
+                            <img src="${pageContext.request.contextPath}/assets/sample-book/product-3.jpg" class="card-img-top image-with-cover">
                             <div class="image-with-cover-hover-content d-flex align-items-center justify-content-center">
                                 <a href="store/bookId">
                                     <button type="primary" class="btn btn-primary py-2 px-4">Mua ngay</button>
@@ -260,7 +260,7 @@
                     </div>
                     <div class="d-flex align-items-center justify-content-center col-3">
                         <div class="card" style="width: 18rem; border: 0">
-                            <img src="assets/sample-book/product-4.jpg" class="card-img-top image-with-cover">
+                            <img src="${pageContext.request.contextPath}/assets/sample-book/product-4.jpg" class="card-img-top image-with-cover">
                             <div class="image-with-cover-hover-content d-flex align-items-center justify-content-center">
                                 <a href="store/bookId">
                                     <button type="primary" class="btn btn-primary py-2 px-4">Mua ngay</button>
@@ -276,7 +276,7 @@
                 <div class="row g-0">
                     <div class="d-flex align-items-center justify-content-center col-3">
                         <div class="card" style="width: 18rem; border: 0">
-                            <img src="assets/sample-book/product-5.jpg" class="card-img-top image-with-cover">
+                            <img src="${pageContext.request.contextPath}/assets/sample-book/product-5.jpg" class="card-img-top image-with-cover">
                             <div class="image-with-cover-hover-content d-flex align-items-center justify-content-center">
                                 <a href="store/bookId">
                                     <button type="primary" class="btn btn-primary py-2 px-4">Mua ngay</button>
@@ -290,7 +290,7 @@
                     </div>
                     <div class="d-flex align-items-center justify-content-center col-3">
                         <div class="card" style="width: 18rem; border: 0">
-                            <img src="assets/sample-book/product-6.jpg" class="card-img-top image-with-cover">
+                            <img src="${pageContext.request.contextPath}/assets/sample-book/product-6.jpg" class="card-img-top image-with-cover">
                             <div class="image-with-cover-hover-content d-flex align-items-center justify-content-center">
                                 <a href="store/bookId">
                                     <button type="primary" class="btn btn-primary py-2 px-4">Mua ngay</button>
@@ -304,7 +304,7 @@
                     </div>
                     <div class="d-flex align-items-center justify-content-center col-3">
                         <div class="card" style="width: 18rem; border: 0">
-                            <img src="assets/sample-book/product-7.jpg" class="card-img-top image-with-cover">
+                            <img src="${pageContext.request.contextPath}/assets/sample-book/product-7.jpg" class="card-img-top image-with-cover">
                             <div class="image-with-cover-hover-content d-flex align-items-center justify-content-center">
                                 <a href="store/bookId">
                                     <button type="primary" class="btn btn-primary py-2 px-4">Mua ngay</button>
@@ -318,7 +318,7 @@
                     </div>
                     <div class="d-flex align-items-center justify-content-center col-3">
                         <div class="card" style="width: 18rem; border: 0">
-                            <img src="assets/sample-book/product-8.jpg" class="card-img-top image-with-cover">
+                            <img src="${pageContext.request.contextPath}/assets/sample-book/product-8.jpg" class="card-img-top image-with-cover">
                             <div class="image-with-cover-hover-content d-flex align-items-center justify-content-center">
                                 <a href="store/bookId">
                                     <button type="primary" class="btn btn-primary py-2 px-4">Mua ngay</button>
@@ -376,16 +376,16 @@
                         <h3 style=>Theo dõi tin tức và sự kiện qua</h3>
                         <div class="d-flex flex-row g-0 align-items-center gap-4 my-2">
                             <a href="#">
-                                <img src="assets/icons/facebook-brands.svg" style="height: 3rem" role="presentation" />
+                                <img src="${pageContext.request.contextPath}/assets/icons/facebook-brands.svg" style="height: 3rem" role="presentation" />
                             </a>
                             <a href="#">
-                                <img src="assets/icons/github-brands.svg" style="height: 3rem" role="presentation" />
+                                <img src="${pageContext.request.contextPath}/assets/icons/github-brands.svg" style="height: 3rem" role="presentation" />
                             </a>
                             <a href="#">
-                                <img src="assets/icons/instagram-brands.svg" style="height: 3rem" role="presentation" />
+                                <img src="${pageContext.request.contextPath}/assets/icons/instagram-brands.svg" style="height: 3rem" role="presentation" />
                             </a>
                             <a href="#">
-                                <img src="assets/icons/pinterest-brands.svg" style="height: 3rem" role="presentation" />
+                                <img src="${pageContext.request.contextPath}/assets/icons/pinterest-brands.svg" style="height: 3rem" role="presentation" />
                             </a>
                         </div>
                     </div>
