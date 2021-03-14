@@ -26,12 +26,17 @@ public class Books_Controller extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession();
 
-        // 0 is the default list that contain all books
-        session.setAttribute("bookList", this.books_Service.getAllBooks("").get(0));
-        session.setAttribute("categoryList", this.books_Service.getBookCategory());
-        session.setAttribute("cart", new ArrayList<>());
+        if (request.getParameter("id") != null) {
+            session.setAttribute("book", this.books_Service.getBook(Integer.parseInt(request.getParameter("id"))));
+            response.sendRedirect(request.getContextPath() + "/store/product.jsp");
+        } else {
+            // 0 is the default list that contain all books
+            session.setAttribute("bookList", this.books_Service.getAllBooks("").get(0));
+            session.setAttribute("categoryList", this.books_Service.getBookCategory());
+            session.setAttribute("cart", new ArrayList<>());
 
-        response.sendRedirect(request.getContextPath() + "/store");
+            response.sendRedirect(request.getContextPath() + "/store");
+        }
     }
 
     @Override

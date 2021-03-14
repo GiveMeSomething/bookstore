@@ -1,7 +1,4 @@
-<%@page import="entities.Category"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@page import="entities.Book"%>
-<%@page import="java.util.ArrayList"%>
 <%@page import="entities.User"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -16,10 +13,6 @@
     </head>
     <body>
         <%
-            if (session.getAttribute("bookList") == null || session.getAttribute("cart") == null) {
-                response.sendRedirect(request.getContextPath() + "/books");
-            }
-
             User currentUser = (User) session.getAttribute("user");
             String username;
             boolean hasLogin = (currentUser != null);
@@ -27,9 +20,8 @@
                 username = currentUser.getUsername();
             }
         %>
-        <c:set var="bookList" value="${sessionScope.bookList}"/>
-        <c:set var="categoryList" value="${sessionScope.categoryList}"/>
         <c:set var="cart" value="${sessionScope.cart}" />
+        <c:set var="book" value="${sessionScope.book}" />
         <section id="navbar">
             <div class="container">
                 <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -135,6 +127,13 @@
             </div>
         </section>
         <div class="container my-3">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="${pageContext.request.contextPath}">Trang chủ</a></li>
+                    <li class="breadcrumb-item"><a href="${pageContext.request.contextPath}/store">Cửa hàng sách</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">${book.bookName}</li>
+                </ol>
+            </nav>
             <div class="row">
                 <div class="d-flex justify-content-end">
                     <a href="${pageContext.request.contextPath}/cart">
@@ -145,77 +144,38 @@
                 </div>
             </div
         </div>
-        <section id="bookstore">
-            <form action="${pageContext.request.contextPath}/books"  method="POST">
-                <div class="container-fluid">
-                    <h2 class="text-center mt-5">Cửa hàng sách</h2>
-                    <div class="row py-5 g-0">
-                        <div class="col-8 mx-auto">
-                            <div class="input-group">
-                                <input type="text" class="form-control"
-                                       name="keyword"
-                                       placeholder="Nhập từ khóa cần tìm kiếm"
-                                       autocomplete="off"/>
-                                <span class="input-group-btn">
-                                    <button type="submit" class="btn btn-primary">Tìm kiếm</button>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row g-0">
-                        <div class="col-3">
-                            <div class="px-5">
-                                <div class="py-2">
-                                    <h4>Thể loại</h4>
-                                    <c:forEach var="category" items="${categoryList}">
-                                        <div class="form-check my-3 type-checkbox">
-                                            <input class="form-check-input"
-                                                   type="checkbox"
-                                                   name="tag"
-                                                   value="${category.categoryId}"
-                                                   id="${category.categoryId}"
-                                                   ${category.isChecked ? "checked": ""}>
-                                            <label class="form-check-label" for="${category.categoryId}">
-                                                ${category.categoryName}
-                                            </label>
-                                        </div>
-                                    </c:forEach>
-                                </div>
-                                <button type="submit" class="btn btn-primary">Tìm kiếm</button>
-                            </div>
-                        </div>
-                        <div class="col-9">
-                            <div class="row g-0">
-                                <c:forEach var="book" items="${bookList}">
-                                    <div class="d-flex align-items-center col-3">
-                                        <div class="card" style="width: 18rem; border: 0;">
-                                            <img src="${pageContext.request.contextPath}${book.imageUrl}"
-                                                 class="card-img-top image-with-cover">
-                                            <div class="image-with-cover-hover-content d-flex flex-column align-items-center justify-content-center">
-                                                <a href="${pageContext.request.contextPath}/books?id=${book.bookId}">
-                                                    <button type="button" class="btn btn-info my-1">Xem thêm</button>
-                                                </a>
-                                                <a href="${pageContext.request.contextPath}/cart?id=${book.bookId}">
-                                                    <button type="button" class="btn btn-primary">Mua ngay</button>
-                                                </a>
-                                            </div>
-                                            <div class="card-body text-center">
-                                                <h5 class="card-title">${book.bookName}</h5>
-                                                <p><em>$${book.unitPrice}</em></p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </c:forEach>
-                            </div>
-                        </div>
-                    </div>
-            </form>
-        </section>
-    </body>
+    </div>
+    <section id="product">
+        <div class="container">
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script>
-        AOS.init();
-    </script>
+            <div class="row">
+                <div class="col-4">
+                    <img src="${pageContext.request.contextPath}${book.imageUrl}" width="100%" />
+                </div>
+                <div class="col-8 mt-5">
+                    <h1>${book.bookName}</h1>
+                    <div class="row">
+                        <p>By ${book.supplier} from ${book.brand}</p>
+                    </div>
+                    <div class="row my-5">
+                        <h3>$${book.unitPrice}</h3>
+                    </div>
+                    <div class="row">
+                        <h5>Chỉ còn ${book.unitInStock} sản phẩm trong kho !</h5>
+                    </div>
+                    <div class="row my-2">
+                        <a href="${pageContext.request.contextPath}/cart?id=${book.bookId}">
+                            <button type="button" class="btn btn-primary">Mua ngay</button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+    AOS.init();
+</script>
 </html>

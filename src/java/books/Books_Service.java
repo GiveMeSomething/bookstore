@@ -38,4 +38,14 @@ public class Books_Service {
 
         return categoryList;
     }
+
+    public Book getBook(int id) {
+        Book book = new Book();
+        try {
+            book = this.books_Repository.getBook(id);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return book;
+    }
 }

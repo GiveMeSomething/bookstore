@@ -1,8 +1,13 @@
-<%@page import="entities.Category"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@page import="entities.Book"%>
+<%--
+    Document   : checkout
+    Created on : Mar 14, 2021, 5:14:38 PM
+    Author     : Admin
+--%>
+
+<%@page import="java.text.DecimalFormat"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="entities.User"%>
+<%@page import="entities.Book"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -12,24 +17,22 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
         <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
         <link href="${pageContext.request.contextPath}/style/main-page-style.css" rel="stylesheet">
-        <link href="${pageContext.request.contextPath}/style/bookstore-page-style.css" rel="stylesheet">
     </head>
     <body>
         <%
-            if (session.getAttribute("bookList") == null || session.getAttribute("cart") == null) {
-                response.sendRedirect(request.getContextPath() + "/books");
+            boolean hasLogin = (session.getAttribute("user") != null);
+            if (!hasLogin) {
+                response.sendRedirect(request.getContextPath() + "/auth/login");
             }
+            session.setAttribute("redirectTo", "/store/checkout.jsp");
 
-            User currentUser = (User) session.getAttribute("user");
-            String username;
-            boolean hasLogin = (currentUser != null);
-            if (hasLogin) {
-                username = currentUser.getUsername();
+            ArrayList<Book> cart = (ArrayList<Book>) session.getAttribute("cart");
+            double totalCost = 0.0;
+            for (Book book : cart) {
+                totalCost += book.getUnitPrice();
             }
         %>
-        <c:set var="bookList" value="${sessionScope.bookList}"/>
-        <c:set var="categoryList" value="${sessionScope.categoryList}"/>
-        <c:set var="cart" value="${sessionScope.cart}" />
+        <c:set var="cartItems" value="${sessionScope.cart}" />
         <section id="navbar">
             <div class="container">
                 <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -87,23 +90,10 @@
                                                 ${sessionScope.user.username}
                                             </button>
                                             <ul class="dropdown-menu" aria-labelledby="user-dropdown">
-                                                <li><a class="dropdown-item"
-                                                       href="${pageContext.request.contextPath}/user">
-                                                        Trang cá nhân
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a class="dropdown-item"
-                                                       href="${pageContext.request.contextPath}/store/checkout.jsp">
-                                                        Giỏ hàng
-                                                    </a>
-                                                </li>
+                                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/user">Trang cá nhân</a></li>
+                                                <li><a class="dropdown-item" href="#">Giỏ hàng</a></li>
                                                 <hr class="p-0 m-0 my-1"/>
-                                                <li><a class="dropdown-item"
-                                                       href="${pageContext.request.contextPath}/auth?signout=1">
-                                                        Đăng xuất
-                                                    </a>
-                                                </li>
+                                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/auth?signout=1">Đăng xuất</a></li>
                                             </ul>
                                         </div>
                                     </c:when>
@@ -134,85 +124,81 @@
                 </nav>
             </div>
         </section>
-        <div class="container my-3">
-            <div class="row">
-                <div class="d-flex justify-content-end">
-                    <a href="${pageContext.request.contextPath}/cart">
-                        <button class="btn btn-primary">
-                            Giỏ hàng (${cart.size()})
-                        </button>
-                    </a>
-                </div>
-            </div
-        </div>
-        <section id="bookstore">
-            <form action="${pageContext.request.contextPath}/books"  method="POST">
-                <div class="container-fluid">
-                    <h2 class="text-center mt-5">Cửa hàng sách</h2>
-                    <div class="row py-5 g-0">
-                        <div class="col-8 mx-auto">
-                            <div class="input-group">
-                                <input type="text" class="form-control"
-                                       name="keyword"
-                                       placeholder="Nhập từ khóa cần tìm kiếm"
-                                       autocomplete="off"/>
-                                <span class="input-group-btn">
-                                    <button type="submit" class="btn btn-primary">Tìm kiếm</button>
-                                </span>
+        <section id="checkout">
+            <div class="container my-5" data-aos="fade-up" data-aos-duration="700">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="${pageContext.request.contextPath}">Trang chủ</a></li>
+                        <li class="breadcrumb-item"><a href="${pageContext.request.contextPath}/store">Cửa hàng sách</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Thanh toán</li>
+                    </ol>
+                </nav>
+                <h2>Thanh toán</h2>
+                <c:choose>
+                    <c:when test="${empty cartItems}">
+                        <div class="row mt-5">
+                            <div class="col-12" style="font-size:1.5rem">
+                                Giỏ hàng đang trống
+                                <a class="link-like-btn" type="button" href="${pageContext.request.contextPath}/store">
+                                    Đến cửa hàng sách
+                                </a>
                             </div>
                         </div>
-                    </div>
-                    <div class="row g-0">
-                        <div class="col-3">
-                            <div class="px-5">
-                                <div class="py-2">
-                                    <h4>Thể loại</h4>
-                                    <c:forEach var="category" items="${categoryList}">
-                                        <div class="form-check my-3 type-checkbox">
-                                            <input class="form-check-input"
-                                                   type="checkbox"
-                                                   name="tag"
-                                                   value="${category.categoryId}"
-                                                   id="${category.categoryId}"
-                                                   ${category.isChecked ? "checked": ""}>
-                                            <label class="form-check-label" for="${category.categoryId}">
-                                                ${category.categoryName}
-                                            </label>
-                                        </div>
+                    </c:when>
+                    <c:otherwise>
+                        <form action="${pageContext.request.contextPath}/cart" method="POST" class="mt-5">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">STT</th>
+                                        <th scope="col"></th>
+                                        <th scope="col">Tên sách</th>
+                                        <th scope="col">Giá</th>
+                                        <th scope="col"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <c:forEach var="item" items='${cartItems}' varStatus="counter" begin="0">
+                                        <tr>
+                                            <th scope="row">${counter.index + 1}</th>
+                                            <td>
+                                                <img src="${pageContext.request.contextPath}${item.imageUrl}"
+                                                     width="100px">
+                                            </td>
+                                            <td>${item.bookName}</td>
+                                            <td>${item.unitPrice}</td>
+                                            <td>
+                                                <button name="work"
+                                                        value="delete"
+                                                        class="btn btn-danger">
+                                                    Xóa
+                                                </button>
+                                                <input name="index" value="${counter.index}" hidden />
+                                            </td>
+                                        </tr>
                                     </c:forEach>
-                                </div>
-                                <button type="submit" class="btn btn-primary">Tìm kiếm</button>
-                            </div>
-                        </div>
-                        <div class="col-9">
-                            <div class="row g-0">
-                                <c:forEach var="book" items="${bookList}">
-                                    <div class="d-flex align-items-center col-3">
-                                        <div class="card" style="width: 18rem; border: 0;">
-                                            <img src="${pageContext.request.contextPath}${book.imageUrl}"
-                                                 class="card-img-top image-with-cover">
-                                            <div class="image-with-cover-hover-content d-flex flex-column align-items-center justify-content-center">
-                                                <a href="${pageContext.request.contextPath}/books?id=${book.bookId}">
-                                                    <button type="button" class="btn btn-info my-1">Xem thêm</button>
-                                                </a>
-                                                <a href="${pageContext.request.contextPath}/cart?id=${book.bookId}">
-                                                    <button type="button" class="btn btn-primary">Mua ngay</button>
-                                                </a>
-                                            </div>
-                                            <div class="card-body text-center">
-                                                <h5 class="card-title">${book.bookName}</h5>
-                                                <p><em>$${book.unitPrice}</em></p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </c:forEach>
-                            </div>
-                        </div>
-                    </div>
-            </form>
+                                    <tr>
+                                        <th scope="row">Thành tiền</th>
+                                        <td></td>
+                                        <td></td>
+                                        <td><%=totalCost%></td>
+                                        <td></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </form>
+                        <form action="${pageContext.request.contextPath}/address"
+                              method="GET"
+                              class="d-flex justify-content-end mt-5">
+                            <button type="submit" class="btn btn-warning">
+                                Thanh toán
+                            </button>
+                        </form>
+                    </c:otherwise>
+                </c:choose>
+            </div>
         </section>
     </body>
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>

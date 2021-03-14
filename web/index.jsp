@@ -31,33 +31,38 @@
                         <ul class="navbar-nav">
                             <div class="d-flex d-grid gap-4 align-items-center">
                                 <li class="nav-item">
-                                    <button type="button"
-                                            class="nav-link active btn btn-link text-decoration-none navbar-button"
-                                            href="${pageContext.request.contextPath}">
-                                        Trang chủ
-                                    </button>
+                                    <a href="${pageContext.request.contextPath}" class="text-decoration-none">
+                                        <button type="button"
+                                                class="nav-link active btn btn-link  navbar-button">
+                                            Trang chủ
+                                        </button>
+                                    </a>
+
                                 </li>
                                 <li class="nav-item">
-                                    <button type="button"
-                                            class="nav-link active btn btn-link text-decoration-none navbar-button"
-                                            href="${pageContext.request.contextPath}/store">
-                                        Cửa hàng
-                                    </button>
+                                    <a href="${pageContext.request.contextPath}/store" class="text-decoration-none">
+                                        <button type="button"
+                                                class="nav-link active btn btn-link navbar-button">
+                                            Cửa hàng
+                                        </button>
+                                    </a>
                                 </li>
                                 <li class="nav-item">
-                                    <button type="button"
-                                            class="nav-link active btn btn-link text-decoration-none navbar-button"
-                                            href="${pageContext.request.contextPath}/forum">
-                                        Forum
-                                    </button>
+                                    <a href="${pageContext.request.contextPath}/forum" class="text-decoration-none">
+                                        <button type="button"
+                                                class="nav-link active btn btn-link navbar-button">
+                                            Forum
+                                        </button>
+                                    </a>
                                 </li>
                                 <li class="nav-item">
-                                    <button
-                                        type="button"
-                                        class="nav-link active btn btn-link text-decoration-none navbar-button"
-                                        href="${pageContext.request.contextPath}/event">
-                                        Sự kiện
-                                    </button>
+                                    <a href="${pageContext.request.contextPath}" class=" text-decoration-none">
+                                        <button
+                                            type="button"
+                                            class="nav-link active btn btn-link navbar-button">
+                                            Sự kiện
+                                        </button>
+                                    </a>
                                 </li>
                                 <c:choose>
                                     <c:when test="<%=hasLogin%>">
@@ -72,16 +77,29 @@
                                                 ${sessionScope.user.username}
                                             </button>
                                             <ul class="dropdown-menu" aria-labelledby="user-dropdown">
-                                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/user">Trang cá nhân</a></li>
-                                                <li><a class="dropdown-item" href="#">Giỏ hàng</a></li>
+                                                <li><a class="dropdown-item"
+                                                       href="${pageContext.request.contextPath}/user">
+                                                        Trang cá nhân
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a class="dropdown-item"
+                                                       href="${pageContext.request.contextPath}/store/checkout.jsp">
+                                                        Giỏ hàng
+                                                    </a>
+                                                </li>
                                                 <hr class="p-0 m-0 my-1"/>
-                                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/auth?signout=1">Đăng xuất</a></li>
+                                                <li><a class="dropdown-item"
+                                                       href="${pageContext.request.contextPath}/auth?signout=1">
+                                                        Đăng xuất
+                                                    </a>
+                                                </li>
                                             </ul>
                                         </div>
                                     </c:when>
                                     <c:otherwise>
                                         <li class="nav-item">
-                                            <a href="auth/register" class="navbar-link">
+                                            <a href="${pageContext.request.contextPath}/auth/register" class="navbar-link">
                                                 <button
                                                     type="button"
                                                     class="nav-link active btn btn-link text-decoration-none navbar-button">
@@ -90,7 +108,7 @@
                                             </a>
                                         </li>
                                         <li class="nav-item">
-                                            <a href="auth/login" class="navbar-link">
+                                            <a href="${pageContext.request.contextPath}/auth/login" class="navbar-link">
                                                 <button
                                                     type="button"
                                                     class="nav-link active btn btn-link text-decoration-none navbar-button">

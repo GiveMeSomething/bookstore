@@ -76,7 +76,12 @@ public class Auth_Controller extends HttpServlet {
             if (result) {
                 HttpSession session = request.getSession();
                 session.setAttribute("user", auth_Service.getUser(username));
-                response.sendRedirect(request.getContextPath());
+
+                if (session.getAttribute("redirectTo") != null) {
+                    response.sendRedirect(request.getContextPath() + session.getAttribute("redirectTo"));
+                } else {
+                    response.sendRedirect(request.getContextPath());
+                }
             } else {
                 if (work.equals("register")) {
                     request.setAttribute("message", auth_Service.getMessage());

@@ -100,4 +100,30 @@ public class Books_Repository {
         }
         return bookMap;
     }
+
+    public Book getBook(int id) throws SQLException {
+        initConnection();
+
+        String sql = "SELECT BookId, BookName, Brand, UnitPrice, UnitsInStock, Supplier, CategoryId, ImageUrl\n"
+                + "FROM HE150277_HoangTienMinh_Books\n"
+                + "WHERE BookId = ?";
+
+        Book book = new Book();
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, id);
+            ResultSet result = statement.executeQuery();
+            if (result.next()) {
+                book = new Book(
+                        result.getInt("BookId"),
+                        result.getString("BookName"),
+                        result.getString("Brand"),
+                        result.getDouble("UnitPrice"),
+                        result.getInt("UnitsInStock"),
+                        result.getString("Supplier"),
+                        result.getString("ImageUrl")
+                );
+            }
+        }
+        return book;
+    }
 }
