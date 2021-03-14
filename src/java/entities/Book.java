@@ -17,17 +17,19 @@ public class Book {
     private double unitPrice;
     private int unitInStock;
     private String supplier;
+    private String imageUrl;
 
     public Book() {
     }
 
-    public Book(int bookId, String bookName, String brand, double unitPrice, int unitInStock, String supplier) {
+    public Book(int bookId, String bookName, String brand, double unitPrice, int unitInStock, String supplier, String imageUrl) {
         this.bookId = bookId;
         this.bookName = bookName;
         this.brand = brand;
         this.unitPrice = unitPrice;
         this.unitInStock = unitInStock;
         this.supplier = supplier;
+        this.imageUrl = imageUrl;
     }
 
     public int getBookId() {
@@ -52,6 +54,10 @@ public class Book {
 
     public String getSupplier() {
         return supplier;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
     }
 
 }

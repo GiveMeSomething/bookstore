@@ -14,7 +14,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Map;
 
 // Specified to handling db action
 public class Books_Repository {
@@ -59,20 +58,25 @@ public class Books_Repository {
         String sql;
         boolean haveKeyword = !((keyword == null) || (keyword.trim().equals("")));
         if (haveKeyword) {
-            sql = "SELECT BookId, BookName, Brand, UnitPrice, UnitsInStock, Suppliers, CategoryId FROM HE150277_HoangTienMinh_Books"
-                    + "WHERE BookName LIKE ? OR Brand LIKE ? OR Suppliers LIKE ?";
+            sql = "SELECT BookId, BookName, Brand, UnitPrice, UnitsInStock, Supplier, CategoryId, ImageUrl\n"
+                    + "FROM HE150277_HoangTienMinh_Books\n"
+                    + "WHERE LOWER(BookName) LIKE ? OR LOWER(Brand) LIKE ? OR LOWER(Supplier) LIKE ?";
         } else {
-            sql = "SELECT BookId, BookName, Brand, UnitPrice, UnitsInStock, Suppliers, CategoryId FROM HE150277_HoangTienMinh_Books";
+            sql = "SELECT BookId, BookName, Brand, UnitPrice, UnitsInStock, Supplier, CategoryId, ImageUrl\n"
+                    + "FROM HE150277_HoangTienMinh_Books";
 
         }
+        bookMap = new HashMap<>();
+        bookMap.put(0, new ArrayList<>());
 
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             if (haveKeyword) {
-                statement.setString(1, "%" + keyword + "%");
-                statement.setString(2, "%" + keyword + "%");
-                statement.setString(3, "%" + keyword + "%");
+                statement.setString(1, "%" + keyword.toLowerCase() + "%");
+                statement.setString(2, "%" + keyword.toLowerCase() + "%");
+                statement.setString(3, "%" + keyword.toLowerCase() + "%");
             }
             ResultSet result = statement.executeQuery();
+
             while (result.next()) {
                 int categoryId = result.getInt("CategoryId");
                 if (!bookMap.containsKey(categoryId)) {
@@ -85,18 +89,14 @@ public class Books_Repository {
                         result.getString("Brand"),
                         result.getDouble("UnitPrice"),
                         result.getInt("UnitsInStock"),
-                        result.getString("Suppliers")
+                        result.getString("Supplier"),
+                        result.getString("ImageUrl")
                 );
                 bookMap.get(categoryId).add(book);
 
                 // key 0 return a list that contain all books (ignore tag)
                 bookMap.get(0).add(book);
             }
-        }
-
-        for (Map.Entry<Integer, ArrayList<Book>> entry : bookMap.entrySet()) {
-            Integer key = entry.getKey();
-            System.out.println(key);
         }
         return bookMap;
     }

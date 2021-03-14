@@ -14,6 +14,7 @@ public class Category {
     private int categoryId;
     private String categoryName;
     private String desc;
+    private boolean isChecked;
 
     public Category() {
     }
@@ -22,6 +23,8 @@ public class Category {
         this.categoryId = categoryId;
         this.categoryName = categoryName;
         this.desc = desc;
+
+        this.isChecked = false;
     }
 
     public int getCategoryId() {
@@ -35,4 +38,13 @@ public class Category {
     public String getDesc() {
         return desc;
     }
+
+    public boolean isIsChecked() {
+        return isChecked;
+    }
+
+    public void setIsChecked(boolean isChecked) {
+        this.isChecked = isChecked;
+    }
+
 }

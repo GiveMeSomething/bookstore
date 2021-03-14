@@ -33,7 +33,8 @@ create table HE150277_HoangTienMinh_Books (
 	Brand nvarchar(24),
 	UnitPrice float,
 	UnitsInStock int,
-	Suppliers nvarchar(50),
+	ImageUrl nvarchar(50),
+	Supplier nvarchar(50),
 )
 
 create table HE150277_HoangTienMinh_Posts (	

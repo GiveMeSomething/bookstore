@@ -3,8 +3,6 @@ package books;
 import entities.Book;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -29,7 +27,6 @@ public class Books_Controller extends HttpServlet {
         HttpSession session = request.getSession();
 
         // 0 is the default list that contain all books
-        System.out.println(this.books_Service);
         session.setAttribute("bookList", this.books_Service.getAllBooks("").get(0));
         session.setAttribute("categoryList", this.books_Service.getBookCategory());
         session.setAttribute("cart", new ArrayList<>());
@@ -43,16 +40,19 @@ public class Books_Controller extends HttpServlet {
         HttpSession session = request.getSession();
 
         String keyword = request.getParameter("keyword");
-        List<String> tags = Arrays.asList(request.getParameterValues("tag"));
+        String[] tags = request.getParameterValues("tag");
 
         try {
-            if (tags.size() > 1) {
+            if (tags != null && tags.length > 1) {
                 session.setAttribute("bookList", new ArrayList<>());
             } else {
                 Map<Integer, ArrayList<Book>> bookMap = this.books_Service.getAllBooks(keyword);
-
-                int tagId = Integer.parseInt(tags.get(0));
-                session.setAttribute("bookList", bookMap.get(tagId));
+                ArrayList<Book> bookList = bookMap.get(tags != null ? Integer.parseInt(tags[0]) : 0);
+                if (bookList == null) {
+                    session.setAttribute("bookList", new ArrayList<>());
+                } else {
+                    session.setAttribute("bookList", bookList);
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();

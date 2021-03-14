@@ -4,6 +4,7 @@
     Author     : Admin
 --%>
 
+<%@page import="entities.Category"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page import="entities.Book"%>
 <%@page import="java.util.ArrayList"%>
@@ -34,6 +35,7 @@
         %>
         <c:set var="bookList" value="${sessionScope.bookList}"/>
         <c:set var="categoryList" value="${sessionScope.categoryList}"/>
+        <c:set var="cart" value="${sessionScope.cart}" />
         <section id="navbar">
             <div class="container">
                 <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -120,79 +122,81 @@
                 </nav>
             </div>
         </section>
+        <div class="container my-3">
+            <div class="row">
+                <div class="d-flex justify-content-end">
+                    <a href="${pageContext.request.contextPath}/cart">
+                        <button class="btn btn-primary">
+                            Giỏ hàng (${cart.size()})
+                        </button>
+                    </a>
+                </div>
+            </div
+        </div>
         <section id="bookstore">
-            <div class="container-fluid">
-                <h2 class="text-center mt-5">Cửa hàng sách</h2>
-                <div class="row py-5 g-0">
-                    <div class="col-8 mx-auto">
-                        <form action="${pageContext.request.contextPath}/books"  method="POST">
+            <form action="${pageContext.request.contextPath}/books"  method="POST">
+                <div class="container-fluid">
+                    <h2 class="text-center mt-5">Cửa hàng sách</h2>
+                    <div class="row py-5 g-0">
+                        <div class="col-8 mx-auto">
                             <div class="input-group">
-                                <input type="text" class="form-control" name="keyword" placeholder="Nhập từ khóa cần tìm kiếm" />
+                                <input type="text" class="form-control"
+                                       name="keyword"
+                                       placeholder="Nhập từ khóa cần tìm kiếm"
+                                       autocomplete="off"/>
                                 <span class="input-group-btn">
                                     <button type="submit" class="btn btn-primary">Tìm kiếm</button>
                                 </span>
                             </div>
-                        </form>
+                        </div>
                     </div>
-                </div>
-                <div class="row g-0">
-                    <div class="col-3">
-                        <div class="px-5">
-                            <div>
-                                <h3>Thể loại</h3>
-                                <c:forEach var="category" items="${categoryList}">
-                                    <div class="form-check my-3 type-checkbox">
-                                        <input class="form-check-input"
-                                               type="checkbox"
-                                               value="${category.categoryId}"
-                                               id="${category.categoryId}">
-                                        <label class="form-check-label" for="1">
-                                            ${category.categoryName}
-                                        </label>
+                    <div class="row g-0">
+                        <div class="col-3">
+                            <div class="px-5">
+                                <div class="py-2">
+                                    <h4>Thể loại</h4>
+                                    <c:forEach var="category" items="${categoryList}">
+                                        <div class="form-check my-3 type-checkbox">
+                                            <input class="form-check-input"
+                                                   type="checkbox"
+                                                   name="tag"
+                                                   value="${category.categoryId}"
+                                                   id="${category.categoryId}"
+                                                   ${category.isChecked ? "checked": ""}>
+                                            <label class="form-check-label" for="${category.categoryId}">
+                                                ${category.categoryName}
+                                            </label>
+                                        </div>
+                                    </c:forEach>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Tìm kiếm</button>
+                            </div>
+                        </div>
+                        <div class="col-9">
+                            <div class="row g-0">
+                                <c:forEach var="book" items="${bookList}">
+                                    <div class="d-flex align-items-center col-3">
+                                        <div class="card" style="width: 18rem; border: 0;">
+                                            <img src="${pageContext.request.contextPath}${book.imageUrl}" class="card-img-top image-with-cover">
+                                            <div class="image-with-cover-hover-content d-flex flex-column align-items-center justify-content-center">
+                                                <a href="product?id=${book.bookId}">
+                                                    <button type="button" class="btn btn-info my-1">Xem thêm</button>
+                                                </a>
+                                                <a href="/${pageContext.request.contextPath}/cart?id=${book.bookId}">
+                                                    <button type="button" class="btn btn-primary">Mua ngay</button>
+                                                </a>
+                                            </div>
+                                            <div class="card-body text-center">
+                                                <h5 class="card-title">${book.bookName}</h5>
+                                                <p><em>$${book.unitPrice}</em></p>
+                                            </div>
+                                        </div>
                                     </div>
                                 </c:forEach>
                             </div>
-                            <div>
-                                <h3>Sắp xếp theo</h3>
-                                <div class="form-check my-3 type-checkbox">
-                                    <input class="form-check-input" type="checkbox" value="" id="3">
-                                    <label class="form-check-label" for="3">
-                                        xếp theo
-                                    </label>
-                                </div>
-                                <div class="form-check my-3 type-checkbox">
-                                    <input class="form-check-input" type="checkbox" value="" id="4">
-                                    <label class="form-check-label" for="4">
-                                        xếp theo
-                                    </label>
-                                </div>
-                            </div>
-                            <div>
-                                <button type="button" class="btn btn-primary">Tìm kiếm</button>
-                            </div>
                         </div>
                     </div>
-                    <div class="col-9">
-                        <div class="row g-0">
-                            <c:forEach var="book" items="${bookList}">
-                                <div class="d-flex align-items-center col-3">
-                                    <div class="card" style="width: 18rem; border: 0;">
-                                        <img src="${pageContext.request.contextPath}/assets/sample-book/product-1.jpg" class="card-img-top image-with-cover">
-                                        <div class="image-with-cover-hover-content d-flex align-items-center justify-content-center">
-                                            <a href="store/bookId">
-                                                <button type="primary" class="btn btn-primary py-2 px-4">Mua ngay</button>
-                                            </a>
-                                        </div>
-                                        <div class="card-body text-center">
-                                            <h5 class="card-title">${book.bookName}</h5>
-                                            <p><em>$${book.unitPrice}</em></p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </c:forEach>
-                        </div>
-                    </div>
-                </div>
+            </form>
         </section>
     </body>
 </html>
