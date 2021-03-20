@@ -55,7 +55,6 @@ public class ShippingInfo_Controller extends HttpServlet {
     private void addShippingInfo(HttpServletRequest request, HttpServletResponse response) {
         try {
             User currentUser = (User) request.getSession().getAttribute("user");
-            System.out.println(checkAddressCombination(request));
             if (checkAddressCombination(request)) {
                 boolean isAdded = shippingInfo_Service.addShippingAddress(
                         new ShippingInfo(
@@ -71,13 +70,10 @@ public class ShippingInfo_Controller extends HttpServlet {
                 // process base on query result
                 if (!isAdded) {
                     request.setAttribute("message", this.shippingInfo_Service.getMessage());
-                    request.getRequestDispatcher(request.getContextPath() + "/user/shipping.jsp");
+                    request.getRequestDispatcher(request.getContextPath() + "/user/shipping.jsp").forward(request, response);
                 } else {
                     this.getShippingInfo(request, response);
                 }
-            } else {
-                request.setAttribute("message", "Địa chỉ không hợp lệ. Vui lòng kiểm tra lại");
-                request.getRequestDispatcher(request.getContextPath() + "/user/shipping/add.jsp").forward(request, response);
             }
         } catch (Exception e) {
             e.printStackTrace();

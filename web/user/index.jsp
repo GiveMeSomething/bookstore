@@ -167,14 +167,13 @@
                                             data-pattern-mismatch="Số điện thoại không hợp lệ"/>
                                         <div class="invalid-feedback"></div>
                                     </div>
-                                </div>
-                                <div class="row d-flex align-items-center">
-                                    <div class="col-12 m-2">
-                                        <button class="btn btn-primary d-flex" type="submit">
-                                            Lưu thông tin
-                                        </button>
+                                    <div class="row d-flex align-items-center">
+                                        <div class="col-12 m-2">
+                                            <button class="btn btn-primary d-flex" type="submit">
+                                                Lưu thông tin
+                                            </button>
+                                        </div>
                                     </div>
-                                </div>
                             </form>
                         </c:when>
                         <c:otherwise>

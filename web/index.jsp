@@ -238,13 +238,12 @@
                         <div class="card" style="width: 18rem; border: 0;">
                             <img src="${pageContext.request.contextPath}/assets/sample-book/product-1.jpg" class="card-img-top image-with-cover">
                             <div class="image-with-cover-hover-content d-flex align-items-center justify-content-center">
-                                <a href="store/bookId">
-                                    <button type="primary" class="btn btn-primary py-2 px-4">Mua ngay</button>
+                                <a href="${pageContext.request.contextPath}/store"
+                                   <button type="primary" class="btn btn-primary py-2 px-4">Mua ngay</button>
                                 </a>
                             </div>
                             <div class="card-body text-center">
                                 <h5 class="card-title">The Winter</h5>
-                                <p><em>$14.5</em></p>
                             </div>
                         </div>
                     </div>
@@ -252,13 +251,12 @@
                         <div class="card" style="width: 18rem; border: 0">
                             <img src="${pageContext.request.contextPath}/assets/sample-book/product-2.jpg" class="card-img-top image-with-cover">
                             <div class="image-with-cover-hover-content d-flex align-items-center justify-content-center">
-                                <a href="store/bookId">
-                                    <button type="primary" class="btn btn-primary py-2 px-4">Mua ngay</button>
+                                <a href="${pageContext.request.contextPath}/store>
+                                   <button type="primary" class="btn btn-primary py-2 px-4">Mua ngay</button>
                                 </a>
                             </div>
                             <div class="card-body text-center">
                                 <h5 class="card-title">Cats Language</h5>
-                                <p><em>$14.5</em></p>
                             </div>
                         </div>
                     </div>
@@ -266,13 +264,12 @@
                         <div class="card" style="width: 18rem; border: 0">
                             <img src="${pageContext.request.contextPath}/assets/sample-book/product-3.jpg" class="card-img-top image-with-cover">
                             <div class="image-with-cover-hover-content d-flex align-items-center justify-content-center">
-                                <a href="store/bookId">
+                                <a href="${pageContext.request.contextPath}/store">
                                     <button type="primary" class="btn btn-primary py-2 px-4">Mua ngay</button>
                                 </a>
                             </div>
                             <div class="card-body text-center">
                                 <h5 class="card-title">Clean is Design</h5>
-                                <p><em>$14.5</em></p>
                             </div>
                         </div>
                     </div>
@@ -280,13 +277,12 @@
                         <div class="card" style="width: 18rem; border: 0">
                             <img src="${pageContext.request.contextPath}/assets/sample-book/product-4.jpg" class="card-img-top image-with-cover">
                             <div class="image-with-cover-hover-content d-flex align-items-center justify-content-center">
-                                <a href="store/bookId">
+                                <a href="${pageContext.request.contextPath}/store">
                                     <button type="primary" class="btn btn-primary py-2 px-4">Mua ngay</button>
                                 </a>
                             </div>
                             <div class="card-body text-center">
                                 <h5 class="card-title">UX Research</h5>
-                                <p><em>$14.5</em></p>
                             </div>
                         </div>
                     </div>
@@ -296,13 +292,12 @@
                         <div class="card" style="width: 18rem; border: 0">
                             <img src="${pageContext.request.contextPath}/assets/sample-book/product-5.jpg" class="card-img-top image-with-cover">
                             <div class="image-with-cover-hover-content d-flex align-items-center justify-content-center">
-                                <a href="store/bookId">
+                                <a href="${pageContext.request.contextPath}/store">
                                     <button type="primary" class="btn btn-primary py-2 px-4">Mua ngay</button>
                                 </a>
                             </div>
                             <div class="card-body text-center">
                                 <h5 class="card-title">Enlight Yourself</h5>
-                                <p><em>$14.5</em></p>
                             </div>
                         </div>
                     </div>
@@ -310,13 +305,12 @@
                         <div class="card" style="width: 18rem; border: 0">
                             <img src="${pageContext.request.contextPath}/assets/sample-book/product-6.jpg" class="card-img-top image-with-cover">
                             <div class="image-with-cover-hover-content d-flex align-items-center justify-content-center">
-                                <a href="store/bookId">
+                                <a href="${pageContext.request.contextPath}/store">
                                     <button type="primary" class="btn btn-primary py-2 px-4">Mua ngay</button>
                                 </a>
                             </div>
                             <div class="card-body text-center">
                                 <h5 class="card-title">Freelancer FAQ</h5>
-                                <p><em>$14.5</em></p>
                             </div>
                         </div>
                     </div>
@@ -324,13 +318,12 @@
                         <div class="card" style="width: 18rem; border: 0">
                             <img src="${pageContext.request.contextPath}/assets/sample-book/product-7.jpg" class="card-img-top image-with-cover">
                             <div class="image-with-cover-hover-content d-flex align-items-center justify-content-center">
-                                <a href="store/bookId">
+                                <a href="${pageContext.request.contextPath}/store">
                                     <button type="primary" class="btn btn-primary py-2 px-4">Mua ngay</button>
                                 </a>
                             </div>
                             <div class="card-body text-center">
                                 <h5 class="card-title">Time Travel</h5>
-                                <p><em>$14.5</em></p>
                             </div>
                         </div>
                     </div>
@@ -338,13 +331,12 @@
                         <div class="card" style="width: 18rem; border: 0">
                             <img src="${pageContext.request.contextPath}/assets/sample-book/product-8.jpg" class="card-img-top image-with-cover">
                             <div class="image-with-cover-hover-content d-flex align-items-center justify-content-center">
-                                <a href="store/bookId">
+                                <a href="${pageContext.request.contextPath}/store">
                                     <button type="primary" class="btn btn-primary py-2 px-4">Mua ngay</button>
                                 </a>
                             </div>
                             <div class="card-body text-center">
                                 <h5 class="card-title">Bangladesh Power</h5>
-                                <p><em>$14.5</em></p>
                             </div>
                         </div>
                     </div>
